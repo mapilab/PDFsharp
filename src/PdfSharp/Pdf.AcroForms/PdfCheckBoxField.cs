@@ -1,11 +1,11 @@
-#region PDFsharp - A .NET library for processing PDF
+ï»¿#region PDFsharp - A .NET library for processing PDF
 //
 // Authors:
 //   Stefan Lange
 //
 // Copyright (c) 2005-2019 empira Software GmbH, Cologne Area (Germany)
 //
-// http://www.pdfsharp.com
+// http://www.PdfSharp.com
 // http://sourceforge.net/projects/pdfsharp
 //
 // Permission is hereby granted, free of charge, to any person obtaining a
@@ -46,7 +46,7 @@ namespace PdfSharp.Pdf.AcroForms
             _document = document;
         }
 
-        internal PdfCheckBoxField(PdfDictionary dict)
+        public PdfCheckBoxField(PdfDictionary dict)
             : base(dict)
         { }
 
@@ -68,7 +68,7 @@ namespace PdfSharp.Pdf.AcroForms
                 if (Fields.Elements.Items.Length == 2)
                 {
                     string value = ((PdfDictionary)(((PdfReference)(Fields.Elements.Items[0])).Value)).Elements.GetString(Keys.V);
-                    //bool bReturn = value.Length != 0 && value != UncheckedValue; //R081114 (3Std.!!) auch auf Nein prüfen; //TODO woher kommt der Wert?
+                    //bool bReturn = value.Length != 0 && value != UncheckedValue; //R081114 (3Std.!!) auch auf Nein prï¿½fen; //TODO woher kommt der Wert?
                     bool bReturn = value.Length != 0 && value == CheckedName;
                     return bReturn;
                 }
@@ -217,7 +217,7 @@ namespace PdfSharp.Pdf.AcroForms
                     if (Fields.Elements.Items.Length == 2)
                     {
                         string value = ((PdfDictionary)(((PdfReference)(Fields.Elements.Items[0])).Value)).Elements.GetString(Keys.V);
-                        bool bReturn = value.Length != 0 && value != "/Off" && value != "/Nein"; //R081114 (3Std.!!) auch auf Nein prüfen; //TODO woher kommt der Wert?
+                        bool bReturn = value.Length != 0 && value != "/Off" && value != "/Nein"; //R081114 (3Std.!!) auch auf Nein prï¿½fen; //TODO woher kommt der Wert?
                         return bReturn;
                     }
                     else
@@ -366,6 +366,33 @@ namespace PdfSharp.Pdf.AcroForms
             set { _uncheckedName = value; }
         }
         string _uncheckedName = "/Off";
+
+        internal override void Flatten()
+        {
+            base.Flatten();
+
+            if (!HasKids && Checked)
+            {
+                var appearance = Elements.GetDictionary(PdfAnnotation.Keys.AP);
+                if (appearance != null)
+                {
+                    // /N -> Normal appearance, /R -> Rollover appearance, /D -> Down appearance
+                    var apps = appearance.Elements.GetDictionary("/N");
+                    if (apps != null)
+                    {
+                        var appSelRef = apps.Elements.GetReference(GetNonOffValue());
+                        if (appSelRef != null)
+                        {
+                            var appSel = appSelRef.Value as PdfDictionary;
+                            if (appSel != null)
+                            {
+                                RenderContentStream(appSel.Stream);
+                            }
+                        }
+                    }
+                }
+            }
+        }
 
         /// <summary>
         /// Predefined keys of this dictionary. 

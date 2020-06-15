@@ -1,11 +1,11 @@
-#region PDFsharp - A .NET library for processing PDF
+﻿#region PDFsharp - A .NET library for processing PDF
 //
 // Authors:
 //   Stefan Lange
 //
 // Copyright (c) 2005-2019 empira Software GmbH, Cologne Area (Germany)
 //
-// http://www.pdfsharp.com
+// http://www.PdfSharp.com
 // http://sourceforge.net/projects/pdfsharp
 //
 // Permission is hereby granted, free of charge, to any person obtaining a
@@ -230,6 +230,19 @@ namespace PdfSharp.Drawing
                 format.LineAlignment = XLineAlignment.Far;
                 return format;
             }
+        }
+
+        public static bool Equals(XStringFormat format1, XStringFormat format2)
+        {
+            if((format1 == null && format2 == null))
+            {
+                return true;
+            }
+            else if((format1 != null && format2 == null) || (format2 != null && format1 == null))
+            {
+                return false;
+            }
+            return (format1.Alignment == format2.Alignment && format1.LineAlignment == format2.LineAlignment);
         }
     }
 }

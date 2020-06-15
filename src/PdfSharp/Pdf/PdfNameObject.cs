@@ -1,11 +1,11 @@
-#region PDFsharp - A .NET library for processing PDF
+﻿#region PDFsharp - A .NET library for processing PDF
 //
 // Authors:
 //   Stefan Lange
 //
 // Copyright (c) 2005-2019 empira Software GmbH, Cologne Area (Germany)
 //
-// http://www.pdfsharp.com
+// http://www.PdfSharp.com
 // http://sourceforge.net/projects/pdfsharp
 //
 // Permission is hereby granted, free of charge, to any person obtaining a
@@ -34,7 +34,7 @@ using PdfSharp.Pdf.IO;
 namespace PdfSharp.Pdf
 {
     /// <summary>
-    /// Represents an indirect name value. This type is not used by PDFsharp. If it is imported from
+    /// Represents an indirect name value. This type is not used by PdfSharp. If it is imported from
     /// an external PDF file, the value is converted into a direct object. Acrobat sometime uses indirect
     /// names to save space, because an indirect reference to a name may be shorter than a long name.
     /// </summary>
@@ -105,6 +105,9 @@ namespace PdfSharp.Pdf
         /// </summary>
         public static bool operator ==(PdfNameObject name, string str)
         {
+            if (ReferenceEquals(name, null))
+                return str != null;
+
             return name._value == str;
         }
 
@@ -113,27 +116,48 @@ namespace PdfSharp.Pdf
         /// </summary>
         public static bool operator !=(PdfNameObject name, string str)
         {
+            if (ReferenceEquals(name, null))
+                return str != null;
+
             return name._value != str;
         }
 
 #if leads_to_ambiguity
         public static bool operator ==(string str, PdfName name)
         {
+            if (ReferenceEquals(name, null))
+                return str != null;
+
             return str == name.value;
         }
 
         public static bool operator !=(string str, PdfName name)
         {
+            if (ReferenceEquals(name, null))
+                return str != null;
+
             return str == name.value;
         }
 
         public static bool operator ==(PdfName name1, PdfName name2)
         {
+            if (ReferenceEquals(name1, null))
+                return name2 != null;
+
+            if (ReferenceEquals(name2, null))
+                return name1 != null;
+
             return name1.value == name2.value;
         }
 
         public static bool operator !=(PdfName name1, PdfName name2)
         {
+            if (ReferenceEquals(name1, null))
+                return name2 != null;
+
+            if (ReferenceEquals(name2, null))
+                return name1 != null;
+
             return name1.value != name2.value;
         }
 #endif
@@ -141,7 +165,7 @@ namespace PdfSharp.Pdf
         /// <summary>
         /// Writes the name including the leading slash.
         /// </summary>
-        internal override void WriteObject(PdfWriter writer)
+        protected override void WriteObject(PdfWriter writer)
         {
             writer.WriteBeginObject(this);
             writer.Write(new PdfName(_value));

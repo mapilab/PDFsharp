@@ -1,11 +1,11 @@
-#region PDFsharp - A .NET library for processing PDF
+ï»¿#region PDFsharp - A .NET library for processing PDF
 //
 // Authors:
 //   Stefan Lange
 //
 // Copyright (c) 2005-2019 empira Software GmbH, Cologne Area (Germany)
 //
-// http://www.pdfsharp.com
+// http://www.PdfSharp.com
 // http://sourceforge.net/projects/pdfsharp
 //
 // Permission is hereby granted, free of charge, to any person obtaining a
@@ -63,12 +63,12 @@ namespace PdfSharp.Drawing
         void DrawLines(XPen pen, XPoint[] points);
 
         /// <summary>
-        /// Draws a Bézier spline.
+        /// Draws a Bï¿½zier spline.
         /// </summary>
         void DrawBezier(XPen pen, double x1, double y1, double x2, double y2, double x3, double y3, double x4, double y4);
 
         /// <summary>
-        /// Draws a series of Bézier splines.
+        /// Draws a series of Bï¿½zier splines.
         /// </summary>
         void DrawBeziers(XPen pen, XPoint[] points);
 

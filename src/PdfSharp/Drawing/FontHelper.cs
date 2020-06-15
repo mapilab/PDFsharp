@@ -1,11 +1,11 @@
-#region PDFsharp - A .NET library for processing PDF
+﻿#region PDFsharp - A .NET library for processing PDF
 //
 // Authors:
 //   Stefan Lange
 //
 // Copyright (c) 2005-2019 empira Software GmbH, Cologne Area (Germany)
 //
-// http://www.pdfsharp.com
+// http://www.PdfSharp.com
 // http://sourceforge.net/projects/pdfsharp
 //
 // Permission is hereby granted, free of charge, to any person obtaining a
@@ -92,7 +92,7 @@ namespace PdfSharp.Drawing
                     {
                         // Remap ch for symbol fonts.
                         ch = (char)(ch | (descriptor.FontFace.os2.usFirstCharIndex & 0xFF00));  // @@@ refactor
-                        // Used | instead of + because of: http://pdfsharp.codeplex.com/workitem/15954
+                        // Used | instead of + because of: http://PdfSharp.codeplex.com/workitem/15954
                     }
                     int glyphIndex = descriptor.CharCodeToGlyphIndex(ch);
                     width += descriptor.GlyphIndexToWidth(glyphIndex);
@@ -101,7 +101,8 @@ namespace PdfSharp.Drawing
                 size.Width = width * font.Size / descriptor.UnitsPerEm;
 
                 // Adjust bold simulation.
-                if ((font.GlyphTypeface.StyleSimulations & XStyleSimulations.BoldSimulation) == XStyleSimulations.BoldSimulation)
+                if ((font.GlyphTypeface.StyleSimulations & XStyleSimulations.BoldSimulation) == XStyleSimulations.BoldSimulation ||
+                    DoApplyBoldHack(font.FamilyName)) //BOLD hacks for helvetica
                 {
                     // Add 2% of the em-size for each character.
                     // Unsure how to deal with white space. Currently count as regular character.
@@ -110,6 +111,18 @@ namespace PdfSharp.Drawing
             }
             Debug.Assert(descriptor != null, "No OpenTypeDescriptor.");
             return size;
+        }
+
+        private static bool DoApplyBoldHack(string familyName)
+        {
+            //TODO: remove when we parse afm files from adobe
+            switch (familyName)
+            {
+                case "Helvetica-Bold":
+                    return true;
+                default:
+                    return false; ;
+            }
         }
 
 #if CORE || GDI

@@ -1,11 +1,11 @@
-#region PDFsharp - A .NET library for processing PDF
+﻿#region PDFsharp - A .NET library for processing PDF
 //
 // Authors:
 //   Stefan Lange
 //
 // Copyright (c) 2005-2019 empira Software GmbH, Cologne Area (Germany)
 //
-// http://www.pdfsharp.com
+// http://www.PdfSharp.com
 // http://sourceforge.net/projects/pdfsharp
 //
 // Permission is hereby granted, free of charge, to any person obtaining a
@@ -28,7 +28,7 @@
 #endregion
 
 //
-// Documentation of conditional compilation symbols used in PDFsharp.
+// Documentation of conditional compilation symbols used in PdfSharp.
 // Checks correct settings and obsolete conditional compilation symbols.
 //
 
@@ -80,7 +80,7 @@
 
 #if UseGdiObjects
 // PDFsharp X graphics classes have implicit cast operators for GDI+ objects.
-// Define this to make it easier to use older code with PDFsharp.
+// Define this to make it easier to use older code with PdfSharp.
 // Undefine this to prevent dependencies to GDI+
 #endif
 

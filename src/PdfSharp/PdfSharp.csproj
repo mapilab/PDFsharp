@@ -11,10 +11,6 @@
     <AssemblyName>PdfSharp</AssemblyName>
     <TargetFrameworkVersion>v3.5</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
-    <SccProjectName>SAK</SccProjectName>
-    <SccLocalPath>SAK</SccLocalPath>
-    <SccAuxPath>SAK</SccAuxPath>
-    <SccProvider>SAK</SccProvider>
     <TargetFrameworkProfile />
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
@@ -37,17 +33,19 @@
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
     <Prefer32Bit>false</Prefer32Bit>
-    <DocumentationFile>bin\Release\PdfSharp.xml</DocumentationFile>
+    <DocumentationFile>bin\Release\Pdfsharp.xml</DocumentationFile>
+    <NoWarn>CS1591</NoWarn>
   </PropertyGroup>
   <PropertyGroup>
     <SignAssembly>true</SignAssembly>
   </PropertyGroup>
   <PropertyGroup>
-    <AssemblyOriginatorKeyFile>StrongnameKey.snk</AssemblyOriginatorKeyFile>
+    <AssemblyOriginatorKeyFile>..\PEX.snk</AssemblyOriginatorKeyFile>
   </PropertyGroup>
   <ItemGroup>
     <Reference Include="System" />
     <Reference Include="System.Drawing" />
+    <Reference Include="System.Security" />
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
@@ -198,6 +196,7 @@
     <Compile Include="Internal\NativeMethods.cs" />
     <Compile Include="Internal\TokenizerHelper.cs" />
     <Compile Include="Pdf.AcroForms\enums\PdfAcroFieldFlags.cs" />
+    <Compile Include="Pdf.AcroForms\enums\PdfAcroFieldType.cs" />
     <Compile Include="Pdf.AcroForms\PdfAcroField.cs" />
     <Compile Include="Pdf.AcroForms\PdfAcroForm.cs" />
     <Compile Include="Pdf.AcroForms\PdfButtonField.cs" />
@@ -224,6 +223,7 @@
     <Compile Include="Pdf.Advanced\PdfCrossReferenceTable.cs" />
     <Compile Include="Pdf.Advanced\PdfDictionaryWithContentStream.cs" />
     <Compile Include="Pdf.Advanced\PdfEmbeddedFileStream.cs" />
+    <Compile Include="Pdf.Advanced\PdfEmbeddedFile.cs" />
     <Compile Include="Pdf.Advanced\PdfExtGState.cs" />
     <Compile Include="Pdf.Advanced\PdfExtGStateTable.cs" />
     <Compile Include="Pdf.Advanced\PdfFileSpecification.cs" />
@@ -264,6 +264,7 @@
     <Compile Include="Pdf.Annotations\enums\PdfTextAnnotationIcon.cs" />
     <Compile Include="Pdf.Annotations\PdfAnnotation.cs" />
     <Compile Include="Pdf.Annotations\PdfAnnotations.cs" />
+    <Compile Include="Pdf.Annotations\PdfFileAttachmentAnnotation.cs" />
     <Compile Include="Pdf.Annotations\PdfGenericAnnotation.cs" />
     <Compile Include="Pdf.Annotations\PdfLinkAnnotation.cs" />
     <Compile Include="Pdf.Annotations\PdfRubberStampAnnotation.cs" />
@@ -322,6 +323,11 @@
     <Compile Include="Pdf.Structure\PdfStructureTreeRoot.cs" />
     <Compile Include="Pdf.Structure\PdfMarkInformation.cs" />
     <Compile Include="Pdf.Structure\PdfTableAttributes.cs" />
+    <Compile Include="Pdf.Signatures\DefaultAppearanceHandler.cs" />
+    <Compile Include="Pdf.Signatures\ISignatureAppearanceHandler.cs" />
+    <Compile Include="Pdf.Signatures\PdfSignatureHandler.cs" />
+    <Compile Include="Pdf.Signatures\PdfSignatureOptions.cs" />
+    <Compile Include="Pdf.Signatures\PositionTracker.cs" />
     <Compile Include="Pdf\EntryInfoAttribute.cs" />
     <Compile Include="Pdf\enums\DocumentState.cs" />
     <Compile Include="Pdf\enums\PdfFlateEncodeMode.cs" />
@@ -414,10 +420,9 @@
       <Generator>ResGen</Generator>
     </EmbeddedResource>
     <EmbeddedResource Include="Resources\Messages.restext" />
-    <None Include="StrongnameKey.snk" />
   </ItemGroup>
   <ItemGroup>
-    <Content Include="SharpZipLib\ReadMe.txt" />
+    <None Include="SharpZipLib\ReadMe.txt" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="Drawing\internal\" />

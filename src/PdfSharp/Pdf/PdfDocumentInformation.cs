@@ -1,11 +1,11 @@
-#region PDFsharp - A .NET library for processing PDF
+ï»¿#region PDFsharp - A .NET library for processing PDF
 //
 // Authors:
 //   Stefan Lange
 //
 // Copyright (c) 2005-2019 empira Software GmbH, Cologne Area (Germany)
 //
-// http://www.pdfsharp.com
+// http://www.PdfSharp.com
 // http://sourceforge.net/projects/pdfsharp
 //
 // Permission is hereby granted, free of charge, to any person obtaining a
@@ -52,7 +52,7 @@ namespace PdfSharp.Pdf
         /// </summary>
         public string Title
         {
-            get { return Elements.GetString(Keys.Title); }
+            get { return Elements.GetString(Keys.Title) ?? string.Empty; }
             set { Elements.SetString(Keys.Title, value); }
         }
 
@@ -61,7 +61,7 @@ namespace PdfSharp.Pdf
         /// </summary>
         public string Author
         {
-            get { return Elements.GetString(Keys.Author); }
+            get { return Elements.GetString(Keys.Author) ?? string.Empty; }
             set { Elements.SetString(Keys.Author, value); }
         }
 
@@ -70,7 +70,7 @@ namespace PdfSharp.Pdf
         /// </summary>
         public string Subject
         {
-            get { return Elements.GetString(Keys.Subject); }
+            get { return Elements.GetString(Keys.Subject) ?? string.Empty; }
             set { Elements.SetString(Keys.Subject, value); }
         }
 
@@ -79,7 +79,7 @@ namespace PdfSharp.Pdf
         /// </summary>
         public string Keywords
         {
-            get { return Elements.GetString(Keys.Keywords); }
+            get { return Elements.GetString(Keys.Keywords) ?? string.Empty; }
             set { Elements.SetString(Keys.Keywords, value); }
         }
 
@@ -88,7 +88,7 @@ namespace PdfSharp.Pdf
         /// </summary>
         public string Creator
         {
-            get { return Elements.GetString(Keys.Creator); }
+            get { return Elements.GetString(Keys.Creator) ?? string.Empty; }
             set { Elements.SetString(Keys.Creator, value); }
         }
 
@@ -97,7 +97,7 @@ namespace PdfSharp.Pdf
         /// </summary>
         public string Producer
         {
-            get { return Elements.GetString(Keys.Producer); }
+            get { return Elements.GetString(Keys.Producer) ?? string.Empty; }
         }
 
         /// <summary>
@@ -128,7 +128,7 @@ namespace PdfSharp.Pdf
         internal sealed class Keys : KeysBase
         {
             /// <summary>
-            /// (Optional; PDF 1.1) The document’s title.
+            /// (Optional; PDF 1.1) The documentï¿½s title.
             /// </summary>
             [KeyInfo(KeyType.String | KeyType.Optional)]
             public const string Title = "/Title";

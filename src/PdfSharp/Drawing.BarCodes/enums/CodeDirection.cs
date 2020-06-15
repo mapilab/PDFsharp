@@ -1,11 +1,11 @@
-#region PDFsharp - A .NET library for processing PDF
+ï»¿#region PDFsharp - A .NET library for processing PDF
 //
 // Authors:
 //   Klaus Potzesny
 //
 // Copyright (c) 2005-2019 empira Software GmbH, Cologne Area (Germany)
 //
-// http://www.pdfsharp.com
+// http://www.PdfSharp.com
 // http://sourceforge.net/projects/pdfsharp
 //
 // Permission is hereby granted, free of charge, to any person obtaining a
@@ -40,17 +40,17 @@ namespace PdfSharp.Drawing.BarCodes
         LeftToRight,
 
         /// <summary>
-        /// Rotates the code 180° at the anchor position.
+        /// Rotates the code 180ï¿½ at the anchor position.
         /// </summary>
         BottomToTop,
 
         /// <summary>
-        /// Rotates the code 180° at the anchor position.
+        /// Rotates the code 180ï¿½ at the anchor position.
         /// </summary>
         RightToLeft,
 
         /// <summary>
-        /// Rotates the code 180° at the anchor position.
+        /// Rotates the code 180ï¿½ at the anchor position.
         /// </summary>
         TopToBottom,
     }

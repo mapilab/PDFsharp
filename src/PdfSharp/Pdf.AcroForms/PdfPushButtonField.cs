@@ -1,11 +1,11 @@
-#region PDFsharp - A .NET library for processing PDF
+﻿#region PDFsharp - A .NET library for processing PDF
 //
 // Authors:
 //   Stefan Lange
 //
 // Copyright (c) 2005-2019 empira Software GmbH, Cologne Area (Germany)
 //
-// http://www.pdfsharp.com
+// http://www.PdfSharp.com
 // http://sourceforge.net/projects/pdfsharp
 //
 // Permission is hereby granted, free of charge, to any person obtaining a
@@ -27,6 +27,8 @@
 // DEALINGS IN THE SOFTWARE.
 #endregion
 
+using PdfSharp.Pdf.Annotations;
+
 namespace PdfSharp.Pdf.AcroForms
 {
     /// <summary>
@@ -43,9 +45,33 @@ namespace PdfSharp.Pdf.AcroForms
             _document = document;
         }
 
-        internal PdfPushButtonField(PdfDictionary dict)
+        public PdfPushButtonField(PdfDictionary dict)
             : base(dict)
         { }
+
+        internal override void Flatten()
+        {
+            base.Flatten();
+
+            var rect = Rectangle;
+            if (!rect.IsEmpty)
+            {
+                var appearance = Elements.GetDictionary(PdfAnnotation.Keys.AP);
+                if (appearance != null)
+                {
+                    // /N -> Normal appearance, /R -> Rollover appearance, /D -> Down appearance
+                    var appSelRef = appearance.Elements.GetReference("/N");
+                    if (appSelRef != null)
+                    {
+                        var appSel = appSelRef.Value as PdfDictionary;
+                        if (appSel != null)
+                        {
+                            RenderContentStream(appSel.Stream);
+                        }
+                    }
+                }
+            }
+        }
 
         /// <summary>
         /// Predefined keys of this dictionary. 

@@ -1,11 +1,11 @@
-#region PDFsharp - A .NET library for processing PDF
+﻿#region PDFsharp - A .NET library for processing PDF
 //
 // Authors:
 //   Stefan Lange
 //
 // Copyright (c) 2005-2019 empira Software GmbH, Cologne Area (Germany)
 //
-// http://www.pdfsharp.com
+// http://www.PdfSharp.com
 // http://sourceforge.net/projects/pdfsharp
 //
 // Permission is hereby granted, free of charge, to any person obtaining a
@@ -42,6 +42,11 @@ using PdfSharp.Drawing.Pdf;
 using PdfSharp.Pdf;
 using PdfSharp.Pdf.Advanced;
 using PdfSharp.Pdf.Filters;
+using PdfSharp.Pdf.AcroForms;
+using System.Linq;
+using PdfSharp.Fonts.OpenType;
+using PdfSharp.Fonts;
+using System.Collections.Generic;
 
 namespace PdfSharp.Drawing
 {
@@ -230,13 +235,13 @@ namespace PdfSharp.Drawing
         /// </summary>
         internal virtual void Finish()
         {
-#if GDI
+
             if (_formState == FormState.NotATemplate || _formState == FormState.Finished)
                 return;
-
+#if GDI
             if (Gfx.Metafile != null)
                 _gdiImage = Gfx.Metafile;
-
+#endif
             Debug.Assert(_formState == FormState.Created || _formState == FormState.UnderConstruction);
             _formState = FormState.Finished;
             Gfx.Dispose();
@@ -256,9 +261,6 @@ namespace PdfSharp.Drawing
                 int length = _pdfForm.Stream.Length;
                 _pdfForm.Elements.SetInteger("/Length", length);
             }
-#endif
-#if WPF
-#endif
         }
 
         /// <summary>
@@ -295,7 +297,7 @@ namespace PdfSharp.Drawing
         /// <summary>
         /// Get the width of the page identified by the property PageNumber.
         /// </summary>
-        [Obsolete("Use either PixelWidth or PointWidth. Temporarily obsolete because of rearrangements for WPF. Currently same as PixelWidth, but will become PointWidth in future releases of PDFsharp.")]
+        [Obsolete("Use either PixelWidth or PointWidth. Temporarily obsolete because of rearrangements for WPF. Currently same as PixelWidth, but will become PointWidth in future releases of PdfSharp.")]
         public override double Width
         {
             //get { return templateSize.width; }
@@ -305,7 +307,7 @@ namespace PdfSharp.Drawing
         /// <summary>
         /// Get the width of the page identified by the property PageNumber.
         /// </summary>
-        [Obsolete("Use either PixelHeight or PointHeight. Temporarily obsolete because of rearrangements for WPF. Currently same as PixelHeight, but will become PointHeight in future releases of PDFsharp.")]
+        [Obsolete("Use either PixelHeight or PointHeight. Temporarily obsolete because of rearrangements for WPF. Currently same as PixelHeight, but will become PointHeight in future releases of PdfSharp.")]
         public override double Height
         {
             //get { return templateSize.height; }
@@ -435,11 +437,74 @@ namespace PdfSharp.Drawing
         internal string GetFontName(XFont font, out PdfFont pdfFont)
         {
             Debug.Assert(IsTemplate, "This function is for form templates only.");
-            pdfFont = _document.FontTable.GetFont(font);
-            Debug.Assert(pdfFont != null);
-            string name = Resources.AddFont(pdfFont);
+            string name = GetFontNameFromResources(font.FamilyName, font.Bold, font.Italic);
+
+            if (string.IsNullOrEmpty(name)) //sure go ahead and try your broken embedding
+            {
+                pdfFont = _document.FontTable.GetFont(font);
+                Debug.Assert(pdfFont != null);
+                name = Resources.AddFont(pdfFont);
+            }
+            else
+            {
+                pdfFont = GetFontFromResources(font);
+                Debug.Assert(pdfFont != null);
+            }
             return name;
         }
+        private string GetFontNameFromResources(string familyName, bool isBold, bool isItalic)
+        {
+            //TODO: Check that bold an italic are found through just their font names
+            var defaultFormResources = Owner.AcroForm.Elements.GetDictionary(PdfAcroForm.Keys.DR);
+            if (defaultFormResources != null && defaultFormResources.Elements.ContainsKey(PdfResources.Keys.Font))
+            {
+                return GetFontResourceItem(familyName, defaultFormResources).Key;
+            }
+
+            return string.Empty;
+        }
+
+        private PdfFont GetFontFromResources(XFont xFont)
+        {
+            //TODO: Check that bold an italic are found through just their font names
+            var defaultFormResources = Owner.AcroForm.Elements.GetDictionary(PdfAcroForm.Keys.DR);
+            if (defaultFormResources != null && defaultFormResources.Elements.ContainsKey(PdfResources.Keys.Font))
+            {
+                var fontList = defaultFormResources.Elements.GetDictionary(PdfResources.Keys.Font);
+
+                var font = GetFontResourceItem(xFont.FamilyName, defaultFormResources);
+
+                PdfItem value = font.Value;
+
+                if (value is PdfReference)
+                {
+                    value = ((PdfReference)value).Value;
+                }
+
+                PdfFont systemFont = new PdfFont(value as PdfDictionary);
+                if (systemFont.FontEncoding == PdfFontEncoding.Unicode)
+                {
+                    OpenTypeDescriptor ttDescriptor = (OpenTypeDescriptor)FontDescriptorCache.GetOrCreateDescriptorFor(xFont);
+                    systemFont.FontDescriptor = new PdfFontDescriptor(Owner, ttDescriptor);
+                }
+
+                return systemFont;
+            }
+
+            return null;
+        }
+
+        internal static KeyValuePair<string, PdfItem> GetFontResourceItem(string familyName, PdfDictionary defaultFormResources)
+        {
+            var fontList = defaultFormResources.Elements.GetDictionary(PdfResources.Keys.Font);
+
+            var font = fontList.Elements.FirstOrDefault(e => e.Key == familyName ||
+                                                        fontList.Elements.GetDictionary(e.Key).Elements.GetName(PdfFont.Keys.BaseFont).TrimStart('/') ==
+                                                        familyName);
+            return font;
+        }
+
+
 
         string IContentStream.GetFontName(XFont font, out PdfFont pdfFont)
         {

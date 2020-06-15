@@ -1,11 +1,11 @@
-#region PDFsharp - A .NET library for processing PDF
+ï»¿#region PDFsharp - A .NET library for processing PDF
 //
 // Authors:
 //   Stefan Lange
 //
 // Copyright (c) 2005-2019 empira Software GmbH, Cologne Area (Germany)
 //
-// http://www.pdfsharp.com
+// http://www.PdfSharp.com
 // http://sourceforge.net/projects/pdfsharp
 //
 // Permission is hereby granted, free of charge, to any person obtaining a
@@ -44,6 +44,10 @@ namespace PdfSharp.Pdf.Advanced
         /// </summary>
         public PdfFont(PdfDocument document)
             : base(document)
+        { }
+
+        public PdfFont(PdfDictionary dict)
+            : base(dict)
         { }
 
         internal PdfFontDescriptor FontDescriptor
@@ -144,7 +148,7 @@ namespace PdfSharp.Pdf.Advanced
 
             /// <summary>
             /// (Required except for the standard 14 fonts; must be an indirect reference)
-            /// A font descriptor describing the font’s metrics other than its glyph widths.
+            /// A font descriptor describing the fontï¿½s metrics other than its glyph widths.
             /// Note: For the standard 14 fonts, the entries FirstChar, LastChar, Widths, and 
             /// FontDescriptor must either all be present or all be absent. Ordinarily, they are
             /// absent; specifying them enables a standard font to be overridden.

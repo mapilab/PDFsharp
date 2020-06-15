@@ -5,7 +5,7 @@
 //
 // Copyright (c) 2005-2019 empira Software GmbH, Cologne Area (Germany)
 //
-// http://www.pdfsharp.com
+// http://www.PdfSharp.com
 // http://sourceforge.net/projects/pdfsharp
 //
 // Permission is hereby granted, free of charge, to any person obtaining a
@@ -478,19 +478,22 @@ namespace PdfSharp.Drawing.Pdf
 
             Realize(font, brush, boldSimulation ? 2 : 0);
 
-            switch (format.Alignment)
+            if (!format.Comb)
             {
-                case XStringAlignment.Near:
-                    // nothing to do
-                    break;
+                switch (format.Alignment)
+                {
+                    case XStringAlignment.Near:
+                        // nothing to do
+                        break;
 
-                case XStringAlignment.Center:
-                    x += (rect.Width - width) / 2;
-                    break;
+                    case XStringAlignment.Center:
+                        x += (rect.Width - width) / 2;
+                        break;
 
-                case XStringAlignment.Far:
-                    x += rect.Width - width;
-                    break;
+                    case XStringAlignment.Far:
+                        x += rect.Width - (width + x);
+                        break;
+                }
             }
             if (Gfx.PageDirection == XPageDirection.Downwards)
             {
@@ -502,7 +505,8 @@ namespace PdfSharp.Drawing.Pdf
 
                     case XLineAlignment.Center:
                         // TODO: Use CapHeight. PDFlib also uses 3/4 of ascent
-                        y += (cyAscent * 3 / 4) / 2 + rect.Height / 2;
+                        //Insane magic number we calculated from HELV bold, its a starting point?
+                        y += (cyAscent * 0.8416421845574388) / 2 + rect.Height / 2;
                         break;
 
                     case XLineAlignment.Far:
@@ -542,11 +546,12 @@ namespace PdfSharp.Drawing.Pdf
             realizedFont.AddChars(s);
 
             const string format2 = Config.SignificantFigures4;
-            OpenTypeDescriptor descriptor = realizedFont.FontDescriptor._descriptor;
+
 
             string text = null;
             if (font.Unicode)
             {
+                OpenTypeDescriptor descriptor = realizedFont.FontDescriptor._descriptor;
                 StringBuilder sb = new StringBuilder();
                 bool isSymbolFont = descriptor.FontFace.cmap.symbol;
                 for (int idx = 0; idx < s.Length; idx++)
@@ -589,11 +594,27 @@ namespace PdfSharp.Drawing.Pdf
             {
                 if (_gfxState.ItalicSimulationOn)
                 {
-                    AdjustTdOffset(ref pos, verticalOffset, true);
-                    AppendFormatArgs("{0:" + format2 + "} {1:" + format2 + "} Td\n{2} Tj\n", pos.X, pos.Y, text);
+                    if (format.Comb)
+                    {
+                        text = text.TrimStart('(').TrimEnd(')');
+                        for (var i = 0; i < text.Length; i++)
+                        {
+                            var c = text[i].ToString();
+                            var cSize = _gfx.MeasureString(c, font);
+                            var xOffset = (format.CombWidth - cSize.Width) / 2.3;
+                            AppendFormat("q {0:0.####} {1:0.####} Td ({2}) Tj Q\n", pos.X + xOffset, pos.Y, c);
+                            pos.X += format.CombWidth;
+                        }
+                    }
+                    else
+                    {
+                        AdjustTdOffset(ref pos, verticalOffset, true);
+                        AppendFormatArgs("{0:" + format2 + "} {1:" + format2 + "} Td\n{2} Tj\n", pos.X, pos.Y, text);
+                    }
                 }
                 else
                 {
+                    // TODO: Combs
                     // Italic simulation is done by skewing characters 20° to the right.
                     XMatrix m = new XMatrix(1, 0, Const.ItalicSkewAngleSinus, 1, pos.X, pos.Y);
                     AppendFormatArgs("{0:" + format2 + "} {1:" + format2 + "} {2:" + format2 + "} {3:" + format2 + "} {4:" + format2 + "} {5:" + format2 + "} Tm\n{6} Tj\n",
@@ -606,6 +627,7 @@ namespace PdfSharp.Drawing.Pdf
             {
                 if (_gfxState.ItalicSimulationOn)
                 {
+                    // TODO: Combs
                     XMatrix m = new XMatrix(1, 0, 0, 1, pos.X, pos.Y);
                     AppendFormatArgs("{0:" + format2 + "} {1:" + format2 + "} {2:" + format2 + "} {3:" + format2 + "} {4:" + format2 + "} {5:" + format2 + "} Tm\n{6} Tj\n",
                         m.M11, m.M12, m.M21, m.M22, m.OffsetX, m.OffsetY, text);
@@ -614,8 +636,23 @@ namespace PdfSharp.Drawing.Pdf
                 }
                 else
                 {
-                    AdjustTdOffset(ref pos, verticalOffset, false);
-                    AppendFormatArgs("{0:" + format2 + "} {1:" + format2 + "} Td {2} Tj\n", pos.X, pos.Y, text);
+                    if (format.Comb)
+                    {
+                        text = text.TrimStart('(').TrimEnd(')');
+                        for (var i = 0; i < text.Length; i++)
+                        {
+                            var c = text[i].ToString();
+                            var cSize = _gfx.MeasureString(c, font);
+                            var xOffset = (format.CombWidth - cSize.Width) / 2.3;
+                            AppendFormat("q {0:0.####} {1:0.####} Td ({2}) Tj Q\n", pos.X + xOffset, pos.Y, c);
+                            pos.X += format.CombWidth;
+                        }
+                    }
+                    else
+                    {
+                        AdjustTdOffset(ref pos, verticalOffset, false);
+                        AppendFormatArgs("{0:" + format2 + "} {1:" + format2 + "} Td {2} Tj\n", pos.X, pos.Y, text);
+                    }
                 }
             }
 #else
@@ -1016,7 +1053,7 @@ namespace PdfSharp.Drawing.Pdf
             {
                 int currentQuadrant = startQuadrant;
                 bool firstLoop = true;
-                do
+                while (true)
                 {
                     if (currentQuadrant == startQuadrant && firstLoop)
                     {
@@ -1047,7 +1084,7 @@ namespace PdfSharp.Drawing.Pdf
                         currentQuadrant = currentQuadrant == 0 ? 3 : currentQuadrant - 1;
 
                     firstLoop = false;
-                } while (true);
+                }
             }
         }
 
@@ -1670,7 +1707,7 @@ namespace PdfSharp.Drawing.Pdf
                 // and then mirrored text to compensate the effect that the fipping turns text upside down.
                 // I found this technique during analysis of PDF documents generated with PDFlib. Unfortunately
                 // this technique leads to several problems with programms that compose or view PDF documents
-                // generated with PDFsharp.
+                // generated with PdfSharp.
                 // In PDFsharp 1.4 I implement a revised technique that does not need text mirroring any more.
 
                 DefaultViewMatrix = new XMatrix();
@@ -1865,7 +1902,7 @@ namespace PdfSharp.Drawing.Pdf
         void Realize(XFont font, XBrush brush, int renderingMode)
         {
             BeginPage();
-            RealizeTransform();
+            //RealizeTransform();
             BeginTextMode();
             _gfxState.RealizeFont(font, brush, renderingMode);
         }

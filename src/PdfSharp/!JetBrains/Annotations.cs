@@ -14,7 +14,7 @@
  * limitations under the License.
  */
 
-// Not yet used in PDFsharp.
+// Not yet used in PdfSharp.
 
 #pragma warning disable 1591
 

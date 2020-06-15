@@ -1,11 +1,11 @@
-#region PDFsharp - A .NET library for processing PDF
+ï»¿#region PDFsharp - A .NET library for processing PDF
 //
 // Authors:
 //   Stefan Lange
 //
 // Copyright (c) 2005-2019 empira Software GmbH, Cologne Area (Germany)
 //
-// http://www.pdfsharp.com
+// http://www.PdfSharp.com
 // http://sourceforge.net/projects/pdfsharp
 //
 // Permission is hereby granted, free of charge, to any person obtaining a
@@ -233,7 +233,7 @@ namespace PdfSharp.Pdf.Advanced
             public const string Type = "/Type";
 
             /// <summary>
-            /// (Optional; PDF 1.3) The line width (see “Line Width” on page 185).
+            /// (Optional; PDF 1.3) The line width (see ï¿½Line Widthï¿½ on page 185).
             /// </summary>
             [KeyInfo(KeyType.Real | KeyType.Optional)]
             public const string LW = "/LW";
@@ -374,7 +374,7 @@ namespace PdfSharp.Pdf.Advanced
             public const string ca = "/ca";
 
             /// <summary>
-            /// (Optional; PDF 1.4) The alpha source flag (“alpha is shape”), specifying whether 
+            /// (Optional; PDF 1.4) The alpha source flag (ï¿½alpha is shapeï¿½), specifying whether 
             /// the current soft mask and alpha constant are to be interpreted as shape values (true)
             /// or opacity values (false).
             /// </summary>

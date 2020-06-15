@@ -1,11 +1,11 @@
-#region PDFsharp - A .NET library for processing PDF
+﻿#region PDFsharp - A .NET library for processing PDF
 //
 // Authors:
 //   Stefan Lange
 //
 // Copyright (c) 2005-2019 empira Software GmbH, Cologne Area (Germany)
 //
-// http://www.pdfsharp.com
+// http://www.PdfSharp.com
 // http://sourceforge.net/projects/pdfsharp
 //
 // Permission is hereby granted, free of charge, to any person obtaining a
@@ -451,7 +451,7 @@ namespace PdfSharp.Pdf.Content.Objects  // TODO: split into single files
             return obj;
         }
 
-        //internal override void WriteObject(ContentWriter writer)
+        //protected override void WriteObject(ContentWriter writer)
         //{
         //  throw new Exception("Must not come here.");
         //}

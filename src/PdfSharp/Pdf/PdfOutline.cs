@@ -1,11 +1,11 @@
-#region PDFsharp - A .NET library for processing PDF
+ï»¿#region PDFsharp - A .NET library for processing PDF
 //
 // Authors:
 //   Stefan Lange
 //
 // Copyright (c) 2005-2019 empira Software GmbH, Cologne Area (Germany)
 //
-// http://www.pdfsharp.com
+// http://www.PdfSharp.com
 // http://sourceforge.net/projects/pdfsharp
 //
 // Permission is hereby granted, free of charge, to any person obtaining a
@@ -655,7 +655,7 @@ namespace PdfSharp.Pdf
             return value.HasValue ? value.Value.ToString("#.##", CultureInfo.InvariantCulture) : "null";
         }
 
-        internal override void WriteObject(PdfWriter writer)
+        protected override void WriteObject(PdfWriter writer)
         {
 #if DEBUG
             writer.WriteRaw("% Title = " + FilterUnicode(Title) + "\n");
@@ -752,14 +752,14 @@ namespace PdfSharp.Pdf
 
             /// <summary>
             /// (Required if the item has any descendants; must be an indirect reference)
-            ///  The first of this item’s immediate children in the outline hierarchy.
+            ///  The first of this itemï¿½s immediate children in the outline hierarchy.
             /// </summary>
             [KeyInfo(KeyType.Dictionary | KeyType.Required)]
             public const string First = "/First";
 
             /// <summary>
             /// (Required if the item has any descendants; must be an indirect reference)
-            /// The last of this item’s immediate children in the outline hierarchy.
+            /// The last of this itemï¿½s immediate children in the outline hierarchy.
             /// </summary>
             [KeyInfo(KeyType.Dictionary | KeyType.Required)]
             public const string Last = "/Last";
@@ -800,7 +800,7 @@ namespace PdfSharp.Pdf
 
             /// <summary>
             /// (Optional; PDF 1.4) An array of three numbers in the range 0.0 to 1.0, representing the 
-            /// components in the DeviceRGB color space of the color to be used for the outline entry’s text.
+            /// components in the DeviceRGB color space of the color to be used for the outline entryï¿½s text.
             /// Default value: [0.0 0.0 0.0].
             /// </summary>
             [KeyInfo(KeyType.Array | KeyType.Optional)]
@@ -808,7 +808,7 @@ namespace PdfSharp.Pdf
 
             /// <summary>
             /// (Optional; PDF 1.4) A set of flags specifying style characteristics for displaying the outline
-            /// item’s text. Default value: 0.
+            /// itemï¿½s text. Default value: 0.
             /// </summary>
             [KeyInfo(KeyType.Integer | KeyType.Optional)]
             public const string F = "/F";

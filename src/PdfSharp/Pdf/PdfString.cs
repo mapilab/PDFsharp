@@ -1,11 +1,11 @@
-#region PDFsharp - A .NET library for processing PDF
+﻿#region PDFsharp - A .NET library for processing PDF
 //
 // Authors:
 //   Stefan Lange
 //
 // Copyright (c) 2005-2019 empira Software GmbH, Cologne Area (Germany)
 //
-// http://www.pdfsharp.com
+// http://www.PdfSharp.com
 // http://sourceforge.net/projects/pdfsharp
 //
 // Permission is hereby granted, free of charge, to any person obtaining a
@@ -50,7 +50,7 @@ namespace PdfSharp.Pdf
         RawEncoding = PdfStringFlags.RawEncoding,
 
         /// <summary>
-        /// Not yet used by PDFsharp.
+        /// Not yet used by PdfSharp.
         /// </summary>
         StandardEncoding = PdfStringFlags.StandardEncoding,
 
@@ -69,12 +69,12 @@ namespace PdfSharp.Pdf
         WinAnsiEncoding = PdfStringFlags.WinAnsiEncoding,
 
         /// <summary>
-        /// Not yet used by PDFsharp.
+        /// Not yet used by PdfSharp.
         /// </summary>
         MacRomanEncoding = PdfStringFlags.MacExpertEncoding,
 
         /// <summary>
-        /// Not yet used by PDFsharp.
+        /// Not yet used by PdfSharp.
         /// </summary>
         MacExpertEncoding = PdfStringFlags.MacExpertEncoding,
 
@@ -174,10 +174,11 @@ namespace PdfSharp.Pdf
             _flags = (PdfStringFlags)encoding;
         }
 
-        internal PdfString(string value, PdfStringFlags flags)
+        internal PdfString(string value, PdfStringFlags flags, int paddingLeft = 0)
         {
             _value = value;
             _flags = flags;
+			this.PaddingLeft = paddingLeft;
         }
 
         /// <summary>
@@ -231,6 +232,8 @@ namespace PdfSharp.Pdf
             set { _value = PdfEncoders.RawEncoding.GetString(value, 0, value.Length); }
         }
 
+        public int PaddingLeft { get; private set; }
+
         /// <summary>
         /// Returns the string.
         /// </summary>
@@ -240,7 +243,7 @@ namespace PdfSharp.Pdf
             PdfStringEncoding encoding = (PdfStringEncoding)(_flags & PdfStringFlags.EncodingMask);
             string pdf = (_flags & PdfStringFlags.HexLiteral) == 0 ?
                 PdfEncoders.ToStringLiteral(_value, encoding, null) :
-                PdfEncoders.ToHexStringLiteral(_value, encoding, null);
+                PdfEncoders.ToHexStringLiteral(_value, encoding, null, PaddingLeft);
             return pdf;
 #else
             return _value;
@@ -321,7 +324,7 @@ namespace PdfSharp.Pdf
         /// <summary>
         /// Writes the string DocEncoded.
         /// </summary>
-        internal override void WriteObject(PdfWriter writer)
+        protected override void WriteObject(PdfWriter writer)
         {
             writer.Write(this);
         }

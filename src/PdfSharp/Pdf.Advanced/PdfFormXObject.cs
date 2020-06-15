@@ -1,11 +1,11 @@
-#region PDFsharp - A .NET library for processing PDF
+ï»¿#region PDFsharp - A .NET library for processing PDF
 //
 // Authors:
 //   Stefan Lange
 //
 // Copyright (c) 2005-2019 empira Software GmbH, Cologne Area (Germany)
 //
-// http://www.pdfsharp.com
+// http://www.PdfSharp.com
 // http://sourceforge.net/projects/pdfsharp
 //
 // Permission is hereby granted, free of charge, to any person obtaining a
@@ -445,7 +445,7 @@ namespace PdfSharp.Pdf.Advanced
             /// <summary>
             /// (Required) An array of four numbers in the form coordinate system, giving the 
             /// coordinates of the left, bottom, right, and top edges, respectively, of the 
-            /// form XObject’s bounding box. These boundaries are used to clip the form XObject
+            /// form XObjectï¿½s bounding box. These boundaries are used to clip the form XObject
             /// and to determine its size for caching.
             /// </summary>
             [KeyInfo(KeyType.Rectangle | KeyType.Required)]
@@ -469,7 +469,7 @@ namespace PdfSharp.Pdf.Advanced
             /// <summary>
             /// (Optional; PDF 1.4) A group attributes dictionary indicating that the contents
             /// of the form XObject are to be treated as a group and specifying the attributes
-            /// of that group (see Section 4.9.2, “Group XObjects”).
+            /// of that group (see Section 4.9.2, ï¿½Group XObjectsï¿½).
             /// Note: If a Ref entry (see below) is present, the group attributes also apply to the
             /// external page imported by that entry, which allows such an imported page to be
             /// treated as a group without further modification.

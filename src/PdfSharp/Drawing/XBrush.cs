@@ -1,11 +1,11 @@
-#region PDFsharp - A .NET library for processing PDF
+﻿#region PDFsharp - A .NET library for processing PDF
 //
 // Authors:
 //   Stefan Lange
 //
 // Copyright (c) 2005-2019 empira Software GmbH, Cologne Area (Germany)
 //
-// http://www.pdfsharp.com
+// http://www.PdfSharp.com
 // http://sourceforge.net/projects/pdfsharp
 //
 // Permission is hereby granted, free of charge, to any person obtaining a
@@ -67,11 +67,11 @@ namespace PdfSharp.Drawing
             else if ((lgBrush = brush as LinearGradientBrush) != null)
             {
                 // TODO: xbrush = new LinearGradientBrush(lgBrush.Rectangle, lgBrush.co(solidBrush.Color);
-                throw new NotImplementedException("Brush type not yet supported by PDFsharp.");
+                throw new NotImplementedException("Brush type not yet supported by PdfSharp.");
             }
             else
             {
-                throw new NotImplementedException("Brush type not supported by PDFsharp.");
+                throw new NotImplementedException("Brush type not supported by PdfSharp.");
             }
             return xbrush;
         }

@@ -1,11 +1,11 @@
-#region PDFsharp Charting - A .NET charting library based on PDFsharp
+ï»¿#region PDFsharp Charting - A .NET charting library based on PDFsharp
 //
 // Authors:
 //   Niklas Schneider
 //
 // Copyright (c) 2005-2019 empira Software GmbH, Cologne Area (Germany)
 //
-// http://www.pdfsharp.com
+// http://www.PdfSharp.com
 // http://sourceforge.net/projects/pdfsharp
 //
 // Permission is hereby granted, free of charge, to any person obtaining a
@@ -146,7 +146,7 @@ namespace PdfSharp.Charting.Renderers
                         double outerCircle = size / 2;
                         double innerCircle = size / 5;
                         // outer circle
-                        double rad = -(Math.PI / 2); // 90°
+                        double rad = -(Math.PI / 2); // 90ï¿½
                         for (int idx = 0; idx < 10; idx += 2)
                         {
                             points[idx].X = pos.X + outerCircle * Math.Cos(rad);
@@ -155,7 +155,7 @@ namespace PdfSharp.Charting.Renderers
                         }
 
                         // inner circle
-                        rad = -(Math.PI / 4); // 45°
+                        rad = -(Math.PI / 4); // 45ï¿½
                         double x = innerCircle * Math.Cos(rad);
                         double y = innerCircle * Math.Sin(rad);
                         points[1].X = pos.X + x;

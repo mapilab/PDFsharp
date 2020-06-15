@@ -1,11 +1,11 @@
-#region PDFsharp - A .NET library for processing PDF
+ï»¿#region PDFsharp - A .NET library for processing PDF
 //
 // Authors:
 //   Stefan Lange
 //
 // Copyright (c) 2005-2019 empira Software GmbH, Cologne Area (Germany)
 //
-// http://www.pdfsharp.com
+// http://www.PdfSharp.com
 // http://sourceforge.net/projects/pdfsharp
 //
 // Permission is hereby granted, free of charge, to any person obtaining a
@@ -80,7 +80,7 @@ namespace PdfSharp.Pdf.AcroForms
         // ----- Specific to text fields --------------------------------------------------------------
 
         /// <summary>
-        /// If set, the field may contain multiple lines of text; if clear, the field’s text
+        /// If set, the field may contain multiple lines of text; if clear, the fieldï¿½s text
         /// is restricted to a single line.
         /// </summary>
         Multiline = 1 << (13 - 1),
@@ -114,6 +114,19 @@ namespace PdfSharp.Pdf.AcroForms
         /// </summary>
         DoNotScroll = 1 << (24 - 1),
 
+        /// <summary>
+        /// (PDF 1.5) May be set only if the MaxLen entry is present in the text field dictionary (see Table 229) and if the Multiline, Password, and
+        /// FileSelect flags are clear. If set, the field shall be automatically divided into as many equally spaced positions, or combs, as the
+        /// value of MaxLen, and the text is laid out into those combs.
+        /// </summary>
+        Comb = 1 << (25 - 1),
+
+        /// <summary>
+        /// (PDF 1.5) If set, the value of this field shall be a rich text string (see 12.7.3.4, ï¿½Rich Text Stringsï¿½).
+        /// If the field has a value, the RV entry of the field dictionary (Table 222) shall specify the rich text string.
+        /// </summary>
+        RichText = 1 << (26 - 1),
+
         // ----- Specific to choice fields ------------------------------------------------------------
 
         /// <summary>
@@ -129,7 +142,7 @@ namespace PdfSharp.Pdf.AcroForms
         Edit = 1 << (19 - 1),
 
         /// <summary>
-        /// If set, the field’s option items should be sorted alphabetically. This flag is
+        /// If set, the fieldï¿½s option items should be sorted alphabetically. This flag is
         /// intended for use by form authoring tools, not by PDF viewer applications;
         /// viewers should simply display the options in the order in which they occur 
         /// in the Opt array.
@@ -137,7 +150,7 @@ namespace PdfSharp.Pdf.AcroForms
         Sort = 1 << (20 - 1),
 
         /// <summary>
-        /// (PDF 1.4) If set, more than one of the field’s option items may be selected
+        /// (PDF 1.4) If set, more than one of the fieldï¿½s option items may be selected
         /// simultaneously; if clear, no more than one item at a time may be selected.
         /// </summary>
         MultiSelect = 1 << (22 - 1),

@@ -1,11 +1,11 @@
-#region PDFsharp Charting - A .NET charting library based on PDFsharp
+﻿#region PDFsharp Charting - A .NET charting library based on PDFsharp
 //
 // Authors:
 //   Niklas Schneider
 //
 // Copyright (c) 2005-2019 empira Software GmbH, Cologne Area (Germany)
 //
-// http://www.pdfsharp.com
+// http://www.PdfSharp.com
 // http://sourceforge.net/projects/pdfsharp
 //
 // Permission is hereby granted, free of charge, to any person obtaining a
@@ -36,12 +36,11 @@ using System.Runtime.InteropServices;
 // associated with an assembly.
 //
 [assembly: AssemblyTitle("PDFsharp Charting")]
-[assembly: AssemblyVersion(PdfSharp.ProductVersionInfo.Version)]
-[assembly: AssemblyDescription("A .NET charting library based on PDFsharp.")]
+[assembly: AssemblyDescription("A .NET charting library based on PdfSharp.")]
 [assembly: AssemblyConfiguration(PdfSharp.ProductVersionInfo.Configuration)]
 [assembly: AssemblyCompany(PdfSharp.ProductVersionInfo.Company)]
 #if DEBUG
-  [assembly: AssemblyProduct(PdfSharp.ProductVersionInfo.Product + " (Debug Build)")]
+[assembly: AssemblyProduct(PdfSharp.ProductVersionInfo.Product + " (Debug Build)")]
 #else
   [assembly: AssemblyProduct(PdfSharp.ProductVersionInfo.Product)]
 #endif

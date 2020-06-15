@@ -1,11 +1,11 @@
-#region PDFsharp - A .NET library for processing PDF
+ï»¿#region PDFsharp - A .NET library for processing PDF
 //
 // Authors:
 //   Stefan Lange
 //
 // Copyright (c) 2005-2019 empira Software GmbH, Cologne Area (Germany)
 //
-// http://www.pdfsharp.com
+// http://www.PdfSharp.com
 // http://sourceforge.net/projects/pdfsharp
 //
 // Permission is hereby granted, free of charge, to any person obtaining a
@@ -1257,7 +1257,7 @@ namespace PdfSharp.Drawing  // #??? Clean up
 
 #if GDI
         /// <summary>
-        /// Draws a Bézier spline defined by four points.
+        /// Draws a Bï¿½zier spline defined by four points.
         /// </summary>
         public void DrawBezier(XPen pen, GdiPoint pt1, GdiPoint pt2, GdiPoint pt3, GdiPoint pt4)
         {
@@ -1270,7 +1270,7 @@ namespace PdfSharp.Drawing  // #??? Clean up
 
 #if WPF
         /// <summary>
-        /// Draws a Bézier spline defined by four points.
+        /// Draws a Bï¿½zier spline defined by four points.
         /// </summary>
         public void DrawBezier(XPen pen, SysPoint pt1, SysPoint pt2, SysPoint pt3, SysPoint pt4)
         {
@@ -1280,7 +1280,7 @@ namespace PdfSharp.Drawing  // #??? Clean up
 
 #if GDI
         /// <summary>
-        /// Draws a Bézier spline defined by four points.
+        /// Draws a Bï¿½zier spline defined by four points.
         /// </summary>
         public void DrawBezier(XPen pen, GdiPointF pt1, GdiPointF pt2, GdiPointF pt3, GdiPointF pt4)
         {
@@ -1289,7 +1289,7 @@ namespace PdfSharp.Drawing  // #??? Clean up
 #endif
 
         /// <summary>
-        /// Draws a Bézier spline defined by four points.
+        /// Draws a Bï¿½zier spline defined by four points.
         /// </summary>
         public void DrawBezier(XPen pen, XPoint pt1, XPoint pt2, XPoint pt3, XPoint pt4)
         {
@@ -1297,7 +1297,7 @@ namespace PdfSharp.Drawing  // #??? Clean up
         }
 
         /// <summary>
-        /// Draws a Bézier spline defined by four points.
+        /// Draws a Bï¿½zier spline defined by four points.
         /// </summary>
         public void DrawBezier(XPen pen, double x1, double y1, double x2, double y2,
           double x3, double y3, double x4, double y4)
@@ -1348,7 +1348,7 @@ namespace PdfSharp.Drawing  // #??? Clean up
 
 #if GDI
         /// <summary>
-        /// Draws a series of Bézier splines from an array of points.
+        /// Draws a series of Bï¿½zier splines from an array of points.
         /// </summary>
         public void DrawBeziers(XPen pen, GdiPoint[] points)
         {
@@ -1358,7 +1358,7 @@ namespace PdfSharp.Drawing  // #??? Clean up
 
 #if WPF
         /// <summary>
-        /// Draws a series of Bézier splines from an array of points.
+        /// Draws a series of Bï¿½zier splines from an array of points.
         /// </summary>
         public void DrawBeziers(XPen pen, SysPoint[] points)
         {
@@ -1368,7 +1368,7 @@ namespace PdfSharp.Drawing  // #??? Clean up
 
 #if GDI
         /// <summary>
-        /// Draws a series of Bézier splines from an array of points.
+        /// Draws a series of Bï¿½zier splines from an array of points.
         /// </summary>
         public void DrawBeziers(XPen pen, GdiPointF[] points)
         {
@@ -1377,7 +1377,7 @@ namespace PdfSharp.Drawing  // #??? Clean up
 #endif
 
         /// <summary>
-        /// Draws a series of Bézier splines from an array of points.
+        /// Draws a series of Bï¿½zier splines from an array of points.
         /// </summary>
         public void DrawBeziers(XPen pen, XPoint[] points)
         {
@@ -3549,7 +3549,7 @@ namespace PdfSharp.Drawing  // #??? Clean up
                     {
                         Lock.EnterGdiPlus();
                         GdiRectF rect = layoutRectangle.ToRectangleF();
-                        if (format.LineAlignment == XLineAlignment.BaseLine)
+                        if (format != null && format.LineAlignment == XLineAlignment.BaseLine)
                         {
                             double lineSpace = font.GetHeight(); //old: font.GetHeight(this);
                             int cellSpace = font.FontFamily.GetLineSpacing(font.Style);

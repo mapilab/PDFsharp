@@ -5,7 +5,7 @@
 //
 // Copyright (c) 2005-2019 empira Software GmbH, Cologne Area (Germany)
 //
-// http://www.pdfsharp.com
+// http://www.PdfSharp.com
 // http://sourceforge.net/projects/pdfsharp
 //
 // Permission is hereby granted, free of charge, to any person obtaining a
@@ -186,7 +186,7 @@ namespace PdfSharp.Pdf
             return pdf.ToString();
         }
 
-        internal override void WriteObject(PdfWriter writer)
+        protected override void WriteObject(PdfWriter writer)
         {
             writer.WriteBeginObject(this);
             //int count = Elements.Count;
@@ -234,8 +234,8 @@ namespace PdfSharp.Pdf
                 Debug.Assert(false, "Check when we come here.");
             }
 #endif
-            key.WriteObject(writer);
-            item.WriteObject(writer);
+            key.Write(writer);
+            item.Write(writer);
             writer.NewLine();
         }
 
@@ -500,7 +500,14 @@ namespace PdfSharp.Pdf
 
                 PdfReference reference = obj as PdfReference;
                 if (reference != null)
+                {
                     obj = reference.Value;
+
+                    if (reference.Value.Internals.TypeID == "PdfNullObject")
+                    {
+                        return null;
+                    }
+                }
 
                 PdfString str = obj as PdfString;
                 if (str != null)
@@ -894,12 +901,12 @@ namespace PdfSharp.Pdf
                             {
                                 if (typeof(PdfDictionary).IsAssignableFrom(type))
                                 {
-                                    Debug.Assert(value is PdfDictionary, "Bug in PDFsharp. Please send this file to PDFsharp support.");
+                                    Debug.Assert(value is PdfDictionary, "Bug in PdfSharp. Please send this file to PDFsharp support.");
                                     value = CreateDictionary(type, (PdfDictionary)value);
                                 }
                                 else if (typeof(PdfArray).IsAssignableFrom(type))
                                 {
-                                    Debug.Assert(value is PdfArray, "Bug in PDFsharp. Please send this file to PDFsharp support.");
+                                    Debug.Assert(value is PdfArray, "Bug in PdfSharp. Please send this file to PDFsharp support.");
                                     value = CreateArray(type, (PdfArray)value);
                                 }
                                 else
@@ -912,12 +919,12 @@ namespace PdfSharp.Pdf
                             {
                                 if (typeof(PdfDictionary).GetTypeInfo().IsAssignableFrom(typeInfo))
                                 {
-                                    Debug.Assert(value is PdfDictionary, "Bug in PDFsharp. Please send this file to PDFsharp support.");
+                                    Debug.Assert(value is PdfDictionary, "Bug in PdfSharp. Please send this file to PDFsharp support.");
                                     value = CreateDictionary(type, (PdfDictionary)value);
                                 }
                                 else if (typeof(PdfArray).GetTypeInfo().IsAssignableFrom(typeInfo))
                                 {
-                                    Debug.Assert(value is PdfArray, "Bug in PDFsharp. Please send this file to PDFsharp support.");
+                                    Debug.Assert(value is PdfArray, "Bug in PdfSharp. Please send this file to PDFsharp support.");
                                     value = CreateArray(type, (PdfArray)value);
                                 }
                                 else

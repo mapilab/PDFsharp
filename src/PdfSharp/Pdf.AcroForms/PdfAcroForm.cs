@@ -1,11 +1,11 @@
-#region PDFsharp - A .NET library for processing PDF
+ï»¿#region PDFsharp - A .NET library for processing PDF
 //
 // Authors:
 //   Stefan Lange
 //
 // Copyright (c) 2005-2019 empira Software GmbH, Cologne Area (Germany)
 //
-// http://www.pdfsharp.com
+// http://www.PdfSharp.com
 // http://sourceforge.net/projects/pdfsharp
 //
 // Permission is hereby granted, free of charge, to any person obtaining a
@@ -26,6 +26,9 @@
 // FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER 
 // DEALINGS IN THE SOFTWARE.
 #endregion
+
+using System.Collections.Generic;
+using System.Linq;
 
 namespace PdfSharp.Pdf.AcroForms
 {
@@ -66,6 +69,51 @@ namespace PdfSharp.Pdf.AcroForms
         PdfAcroField.PdfAcroFieldCollection _fields;
 
         /// <summary>
+        /// Flattens the AcroForm by rendering Field-contents directly onto the page.
+        /// </summary>
+        public void Flatten()
+        {
+            for (var i = 0; i < Fields.Elements.Count; i++)
+            {
+                var field = Fields[i];
+                field.Flatten();
+            }
+            _document.Catalog.AcroForm = null;
+        }
+
+        internal override void PrepareForSave()
+        {
+            base.PrepareForSave();
+
+            IEnumerable<PdfAcroField> typedFields = Fields;
+
+            var allFields = typedFields.Concat(typedFields.SelectMany(tf => WalkAllFields(tf)));
+            foreach (var element in allFields)
+            {
+                element.PrepareForSave();
+            }
+        }
+
+        public IEnumerable<PdfAcroField> WalkAllFields(PdfAcroField current)
+        {
+            if (!current.HasKids)
+            {
+                yield return current;
+                yield break;
+            }
+
+
+            foreach (var child in current.Fields)
+            {
+                var subchildren = WalkAllFields(child);
+                foreach (var subChild in subchildren)
+                {
+                    yield return subChild;
+                }
+            }
+        }
+
+        /// <summary>
         /// Predefined keys of this dictionary. 
         /// The description comes from PDF 1.4 Reference.
         /// </summary>
@@ -74,7 +122,7 @@ namespace PdfSharp.Pdf.AcroForms
             // ReSharper disable InconsistentNaming
 
             /// <summary>
-            /// (Required) An array of references to the document’s root fields (those with
+            /// (Required) An array of references to the documentï¿½s root fields (those with
             /// no ancestors in the field hierarchy).
             /// </summary>
             [KeyInfo(KeyType.Array | KeyType.Required, typeof(PdfAcroField.PdfAcroFieldCollection))]

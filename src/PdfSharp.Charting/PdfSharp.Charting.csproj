@@ -11,10 +11,6 @@
     <AssemblyName>PdfSharp.Charting</AssemblyName>
     <TargetFrameworkVersion>v3.5</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
-    <SccProjectName>SAK</SccProjectName>
-    <SccLocalPath>SAK</SccLocalPath>
-    <SccAuxPath>SAK</SccAuxPath>
-    <SccProvider>SAK</SccProvider>
     <TargetFrameworkProfile />
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
@@ -25,6 +21,7 @@
     <DefineConstants>TRACE;DEBUG;CORE</DefineConstants>
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
+    <Prefer32Bit>false</Prefer32Bit>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
     <DebugType>pdbonly</DebugType>
@@ -33,20 +30,22 @@
     <DefineConstants>TRACE;CORE</DefineConstants>
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
-    <DocumentationFile>bin\Release\PdfSharp.Charting.xml</DocumentationFile>
+    <DocumentationFile>bin\Release\Pdfsharp.Charting.xml</DocumentationFile>
+    <Prefer32Bit>false</Prefer32Bit>
   </PropertyGroup>
   <PropertyGroup>
-    <SignAssembly>true</SignAssembly>
+    <SignAssembly>false</SignAssembly>
   </PropertyGroup>
   <PropertyGroup>
-    <AssemblyOriginatorKeyFile>StrongnameKey.snk</AssemblyOriginatorKeyFile>
+    <AssemblyOriginatorKeyFile>
+    </AssemblyOriginatorKeyFile>
   </PropertyGroup>
   <ItemGroup>
     <Reference Include="System" />
     <Reference Include="System.Drawing" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="..\PdfSharp\root\VersionInfo.cs">
+    <Compile Include="..\Pdfsharp\root\VersionInfo.cs">
       <Link>root\VersionInfo.cs</Link>
     </Compile>
     <Compile Include="Charting.Renderers\AreaChartRenderer.cs" />
@@ -144,10 +143,7 @@
     <EmbeddedResource Include="Resources\Messages.restext" />
   </ItemGroup>
   <ItemGroup>
-    <None Include="StrongnameKey.snk" />
-  </ItemGroup>
-  <ItemGroup>
-    <ProjectReference Include="..\PdfSharp\PdfSharp.csproj">
+    <ProjectReference Include="..\Pdfsharp\PDFsharp.csproj">
       <Project>{5a6055bc-bf86-4fdd-9f62-0109db7a303b}</Project>
       <Name>PdfSharp</Name>
     </ProjectReference>

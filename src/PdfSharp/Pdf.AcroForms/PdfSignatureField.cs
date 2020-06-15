@@ -1,11 +1,11 @@
-#region PDFsharp - A .NET library for processing PDF
+ï»¿#region PDFsharp - A .NET library for processing PDF
 //
 // Authors:
 //   Stefan Lange
 //
 // Copyright (c) 2005-2019 empira Software GmbH, Cologne Area (Germany)
 //
-// http://www.pdfsharp.com
+// http://www.PdfSharp.com
 // http://sourceforge.net/projects/pdfsharp
 //
 // Permission is hereby granted, free of charge, to any person obtaining a
@@ -27,6 +27,11 @@
 // DEALINGS IN THE SOFTWARE.
 #endregion
 
+using PdfSharp.Drawing;
+using PdfSharp.Pdf.Annotations;
+using PdfSharp.Signatures;
+using System;
+
 namespace PdfSharp.Pdf.AcroForms
 {
     /// <summary>
@@ -34,16 +39,119 @@ namespace PdfSharp.Pdf.AcroForms
     /// </summary>
     public sealed class PdfSignatureField : PdfAcroField
     {
+        public string Reason
+        {
+            get
+            {
+                return Elements.GetDictionary(Keys.V).Elements.GetString(Keys.Reason);
+            }
+            set
+            {
+                Elements.GetDictionary(Keys.V).Elements[Keys.Reason] = new PdfString(value);
+            }
+        }
+
+        public string Location
+        {
+            get
+            {
+                return Elements.GetDictionary(Keys.V).Elements.GetString(Keys.Location);
+            }
+            set
+            {
+                Elements.GetDictionary(Keys.V).Elements[Keys.Location] = new PdfString(value);
+            }
+        }
+
+        public PdfItem Contents
+        {
+            get
+            {
+                return Elements.GetDictionary(Keys.V).Elements[Keys.Contents];
+            }
+            set
+            {
+                Elements.GetDictionary(Keys.V).Elements.Add(Keys.Contents, value);
+            }
+        }
+
+
+        public PdfItem ByteRange
+        {
+            get
+            {
+                return Elements.GetDictionary(Keys.V).Elements[Keys.ByteRange];
+            }
+            set
+            {
+                Elements.GetDictionary(Keys.V).Elements.Add(Keys.ByteRange, value);
+            }
+        }
+
+        public ISignatureAppearanceHandler AppearanceHandler { get; internal set; }
+
         /// <summary>
         /// Initializes a new instance of PdfSignatureField.
         /// </summary>
         internal PdfSignatureField(PdfDocument document)
             : base(document)
-        { }
+        {
+            Elements.Add(Keys.FT, new PdfName("/Sig"));
+            Elements.Add(Keys.T, new PdfString("Signature1"));
+            Elements.Add(Keys.Ff, new PdfInteger(132));
+            Elements.Add(Keys.DR, new PdfDictionary());
+            Elements.Add(Keys.Type, new PdfName("/Annot"));
+            Elements.Add(Keys.Subtype, new PdfName("/Widget"));
+            Elements.Add(Keys.Page, document.Pages[0]);
 
-        internal PdfSignatureField(PdfDictionary dict)
+
+            PdfDictionary sign = new PdfDictionary(document);
+            sign.Elements.Add(Keys.Type, new PdfName("/Sig"));
+            sign.Elements.Add(Keys.Filter, new PdfName("/Adobe.PPKLite"));
+            sign.Elements.Add(Keys.SubFilter, new PdfName("/adbe.pkcs7.detached"));
+            sign.Elements.Add(Keys.M, new PdfDate(DateTime.Now));
+
+            document._irefTable.Add(sign);
+            document._irefTable.Add(this);
+
+            Elements.Add(Keys.V, sign);
+
+        }
+
+        public PdfSignatureField(PdfDictionary dict)
             : base(dict)
         { }
+
+
+        internal override void PrepareForSave()
+        {
+            if (Rectangle.X1 + Rectangle.X2 + Rectangle.Y1 + Rectangle.Y2 == 0)
+                return;
+
+            if (this.AppearanceHandler == null)
+                return;
+
+
+
+            PdfRectangle rect = Elements.GetRectangle(PdfAnnotation.Keys.Rect);
+            XForm form = new XForm(this._document, rect.Size);
+            XGraphics gfx = XGraphics.FromForm(form);
+
+            this.AppearanceHandler.DrawAppearance(gfx, rect.ToXRect());
+
+            form.DrawingFinished();
+
+            // Get existing or create new appearance dictionary
+            PdfDictionary ap = Elements[PdfAnnotation.Keys.AP] as PdfDictionary;
+            if (ap == null)
+            {
+                ap = new PdfDictionary(this._document);
+                Elements[PdfAnnotation.Keys.AP] = ap;
+            }
+
+            // Set XRef to normal state
+            ap.Elements["/N"] = form.PdfForm.Reference;
+        }
 
         /// <summary>
         /// Predefined keys of this dictionary.
@@ -51,16 +159,10 @@ namespace PdfSharp.Pdf.AcroForms
         /// </summary>
         public new class Keys : PdfAcroField.Keys
         {
-            /// <summary>
-            /// (Optional) The type of PDF object that this dictionary describes; if present,
-            /// must be Sig for a signature dictionary.
-            /// </summary>
-            [KeyInfo(KeyType.Name | KeyType.Optional)]
-            public const string Type = "/Type";
 
             /// <summary>
             /// (Required; inheritable) The name of the signature handler to be used for
-            /// authenticating the field’s contents, such as Adobe.PPKLite, Entrust.PPKEF,
+            /// authenticating the fieldï¿½s contents, such as Adobe.PPKLite, Entrust.PPKEF,
             /// CICI.SignIt, or VeriSign.PPKVS.
             /// </summary>
             [KeyInfo(KeyType.Name | KeyType.Required)]
@@ -108,10 +210,16 @@ namespace PdfSharp.Pdf.AcroForms
             public const string Location = "/Location";
 
             /// <summary>
-            /// (Optional) The reason for the signing, such as (I agree…).
+            /// (Optional) The reason for the signing, such as (I agreeï¿½).
             /// </summary>
             [KeyInfo(KeyType.TextString | KeyType.Optional)]
             public const string Reason = "/Reason";
+
+            /// <summary>
+            /// (Optional)
+            /// </summary>
+            [KeyInfo(KeyType.TextString | KeyType.Optional)]
+            public const string ContactInfo = "/ContactInfo";
 
             /// <summary>
             /// Gets the KeysMeta for these keys.

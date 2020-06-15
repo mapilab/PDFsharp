@@ -1,11 +1,11 @@
-#region PDFsharp - A .NET library for processing PDF
+﻿#region PDFsharp - A .NET library for processing PDF
 //
 // Authors:
 //   Stefan Lange
 //
 // Copyright (c) 2005-2019 empira Software GmbH, Cologne Area (Germany)
 //
-// http://www.pdfsharp.com
+// http://www.PdfSharp.com
 // http://sourceforge.net/projects/pdfsharp
 //
 // Permission is hereby granted, free of charge, to any person obtaining a
@@ -331,7 +331,7 @@ namespace PdfSharp
         public static string UnknownEncryption
         {
             get { return GetString(PSMsgID.UnknownEncryption); }
-            //get { return "The PDF document is protected with an encryption not supported by PDFsharp."; }
+            //get { return "The PDF document is protected with an encryption not supported by PdfSharp."; }
         }
 
         #endregion

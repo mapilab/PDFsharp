@@ -1,4 +1,4 @@
-//
+﻿//
 // PDFsharp - A library for processing PDF
 //
 // Authors:
@@ -6,7 +6,7 @@
 //
 // Copyright (c) 2005-2019 empira Software GmbH, Cologne Area (Germany)
 //
-// http://www.pdfsharp.com
+// http://www.PdfSharp.com
 //
 // Permission is hereby granted, free of charge, to any person obtaining
 // a copy of this software and associated documentation files (the

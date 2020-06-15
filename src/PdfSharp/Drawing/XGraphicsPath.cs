@@ -1,11 +1,11 @@
-#region PDFsharp - A .NET library for processing PDF
+ï»¿#region PDFsharp - A .NET library for processing PDF
 //
 // Authors:
 //   Stefan Lange
 //
 // Copyright (c) 2005-2019 empira Software GmbH, Cologne Area (Germany)
 //
-// http://www.pdfsharp.com
+// http://www.PdfSharp.com
 // http://sourceforge.net/projects/pdfsharp
 //
 // Permission is hereby granted, free of charge, to any person obtaining a
@@ -357,7 +357,7 @@ namespace PdfSharp.Drawing
 
 #if GDI
         /// <summary>
-        /// Adds a cubic Bézier curve to the current figure.
+        /// Adds a cubic Bï¿½zier curve to the current figure.
         /// </summary>
         public void AddBezier(System.Drawing.Point pt1, System.Drawing.Point pt2, System.Drawing.Point pt3, System.Drawing.Point pt4)
         {
@@ -367,7 +367,7 @@ namespace PdfSharp.Drawing
 
 #if WPF
         /// <summary>
-        /// Adds a cubic Bézier curve to the current figure.
+        /// Adds a cubic Bï¿½zier curve to the current figure.
         /// </summary>
         public void AddBezier(SysPoint pt1, SysPoint pt2, SysPoint pt3, SysPoint pt4)
         {
@@ -377,7 +377,7 @@ namespace PdfSharp.Drawing
 
 #if GDI
         /// <summary>
-        /// Adds a cubic Bézier curve to the current figure.
+        /// Adds a cubic Bï¿½zier curve to the current figure.
         /// </summary>
         public void AddBezier(PointF pt1, PointF pt2, PointF pt3, PointF pt4)
         {
@@ -386,7 +386,7 @@ namespace PdfSharp.Drawing
 #endif
 
         /// <summary>
-        /// Adds a cubic Bézier curve to the current figure.
+        /// Adds a cubic Bï¿½zier curve to the current figure.
         /// </summary>
         public void AddBezier(XPoint pt1, XPoint pt2, XPoint pt3, XPoint pt4)
         {
@@ -394,7 +394,7 @@ namespace PdfSharp.Drawing
         }
 
         /// <summary>
-        /// Adds a cubic Bézier curve to the current figure.
+        /// Adds a cubic Bï¿½zier curve to the current figure.
         /// </summary>
         public void AddBezier(double x1, double y1, double x2, double y2, double x3, double y3, double x4, double y4)
         {
@@ -448,7 +448,7 @@ namespace PdfSharp.Drawing
 
 #if GDI
         /// <summary>
-        /// Adds a sequence of connected cubic Bézier curves to the current figure.
+        /// Adds a sequence of connected cubic Bï¿½zier curves to the current figure.
         /// </summary>
         public void AddBeziers(System.Drawing.Point[] points)
         {
@@ -458,7 +458,7 @@ namespace PdfSharp.Drawing
 
 #if WPF
         /// <summary>
-        /// Adds a sequence of connected cubic Bézier curves to the current figure.
+        /// Adds a sequence of connected cubic Bï¿½zier curves to the current figure.
         /// </summary>
         public void AddBeziers(SysPoint[] points)
         {
@@ -468,7 +468,7 @@ namespace PdfSharp.Drawing
 
 #if GDI
         /// <summary>
-        /// Adds a sequence of connected cubic Bézier curves to the current figure.
+        /// Adds a sequence of connected cubic Bï¿½zier curves to the current figure.
         /// </summary>
         public void AddBeziers(PointF[] points)
         {
@@ -477,7 +477,7 @@ namespace PdfSharp.Drawing
 #endif
 
         /// <summary>
-        /// Adds a sequence of connected cubic Bézier curves to the current figure.
+        /// Adds a sequence of connected cubic Bï¿½zier curves to the current figure.
         /// </summary>
         public void AddBeziers(XPoint[] points)
         {
@@ -878,7 +878,7 @@ namespace PdfSharp.Drawing
                 Lock.EnterGdiPlus();
                 // If rect is empty GDI+ removes the rect from the path.
                 // This is not intended if the path is used for clipping.
-                // See http://forum.pdfsharp.net/viewtopic.php?p=9433#p9433
+                // See http://forum.PdfSharp.net/viewtopic.php?p=9433#p9433
                 // _gdipPath.AddRectangle(rect.ToRectangleF());
 
                 // Draw the rectangle manually.

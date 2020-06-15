@@ -1,11 +1,11 @@
-#region PDFsharp - A .NET library for processing PDF
+ï»¿#region PDFsharp - A .NET library for processing PDF
 //
 // Authors:
 //   Stefan Lange
 //
 // Copyright (c) 2005-2019 empira Software GmbH, Cologne Area (Germany)
 //
-// http://www.pdfsharp.com
+// http://www.PdfSharp.com
 // http://sourceforge.net/projects/pdfsharp
 //
 // Permission is hereby granted, free of charge, to any person obtaining a
@@ -92,7 +92,7 @@ namespace PdfSharp.Pdf.Actions
             //public const string S = "/S";
 
             /// <summary>
-            /// (Required) The destination to jump to (see Section 8.2.1, “Destinations”).
+            /// (Required) The destination to jump to (see Section 8.2.1, ï¿½Destinationsï¿½).
             /// </summary>
             [KeyInfo(KeyType.Name | KeyType.ByteString | KeyType.Array | KeyType.Required)]
             public const string D = "/D";

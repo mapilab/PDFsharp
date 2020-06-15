@@ -1,11 +1,11 @@
-#region PDFsharp - A .NET library for processing PDF
+﻿#region PDFsharp - A .NET library for processing PDF
 //
 // Authors:
 //   Stefan Lange
 //
 // Copyright (c) 2005-2019 empira Software GmbH, Cologne Area (Germany)
 //
-// http://www.pdfsharp.com
+// http://www.PdfSharp.com
 // http://sourceforge.net/projects/pdfsharp
 //
 // Permission is hereby granted, free of charge, to any person obtaining a
@@ -27,23 +27,37 @@
 // DEALINGS IN THE SOFTWARE.
 #endregion
 
+using PdfSharp.Pdf.Annotations;
+using System;
+
 namespace PdfSharp.Pdf.AcroForms
 {
     /// <summary>
-    /// Represents a generic field. Used for AcroForm dictionaries unknown to PDFsharp.
+    /// Represents a generic field. Used for AcroForm dictionaries unknown to PdfSharp.
     /// </summary>
     public sealed class PdfGenericField : PdfAcroField
     {
         /// <summary>
         /// Initializes a new instance of PdfGenericField.
         /// </summary>
-        internal PdfGenericField(PdfDocument document)
+        public PdfGenericField(PdfDocument document)
             : base(document)
         { }
 
-        internal PdfGenericField(PdfDictionary dict)
+        public PdfGenericField(PdfDictionary dict)
             : base(dict)
         { }
+
+        internal override void Flatten()
+        {
+            base.Flatten();
+
+            var appearances = Elements.GetDictionary(PdfAnnotation.Keys.AP);
+            var normalAppearance = appearances != null ? appearances.Elements.GetDictionary("/N") : null;
+            var activeAppearance = Elements.GetString(PdfAnnotation.Keys.AS);
+            if (!String.IsNullOrEmpty(activeAppearance) && normalAppearance != null && normalAppearance.Elements.ContainsKey(activeAppearance))
+                RenderContentStream(normalAppearance.Elements.GetDictionary(activeAppearance).Stream);
+        }
 
         /// <summary>
         /// Predefined keys of this dictionary. 

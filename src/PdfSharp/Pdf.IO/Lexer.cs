@@ -1,11 +1,11 @@
-#region PDFsharp - A .NET library for processing PDF
+ï»¿#region PDFsharp - A .NET library for processing PDF
 //
 // Authors:
 //   Stefan Lange
 //
 // Copyright (c) 2005-2019 empira Software GmbH, Cologne Area (Germany)
 //
-// http://www.pdfsharp.com
+// http://www.PdfSharp.com
 // http://sourceforge.net/projects/pdfsharp
 //
 // Permission is hereby granted, free of charge, to any person obtaining a
@@ -175,11 +175,11 @@ namespace PdfSharp.Pdf.IO
         {
             int pos;
 
-            // Skip illegal blanks behind «stream».
+            // Skip illegal blanks behind ï¿½streamï¿½.
             while (_currChar == Chars.SP)
                 ScanNextChar(true);
 
-            // Skip new line behind «stream».
+            // Skip new line behind ï¿½streamï¿½.
             if (_currChar == Chars.CR)
             {
                 if (_nextChar == Chars.LF)
@@ -511,7 +511,7 @@ namespace PdfSharp.Pdf.IO
             }
 
             // Phase 2: deal with UTF-16BE if necessary.
-            // UTF-16BE Unicode strings start with U+FEFF ("þÿ"). There can be empty strings with UTF-16BE prefix.
+            // UTF-16BE Unicode strings start with U+FEFF ("ï¿½ï¿½"). There can be empty strings with UTF-16BE prefix.
             Phase2:
             if (_token.Length >= 2 && _token[0] == '\xFE' && _token[1] == '\xFF')
             {

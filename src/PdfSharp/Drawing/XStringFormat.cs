@@ -1,11 +1,11 @@
-#region PDFsharp - A .NET library for processing PDF
+﻿#region PDFsharp - A .NET library for processing PDF
 //
 // Authors:
 //   Stefan Lange
 //
 // Copyright (c) 2005-2019 empira Software GmbH, Cologne Area (Germany)
 //
-// http://www.pdfsharp.com
+// http://www.PdfSharp.com
 // http://sourceforge.net/projects/pdfsharp
 //
 // Permission is hereby granted, free of charge, to any person obtaining a
@@ -133,7 +133,7 @@ namespace PdfSharp.Drawing
                 // Update StringFormat only if it exists.
                 if (_stringFormat != null)
                 {
-                    // BaseLine is specific to PDFsharp.
+                    // BaseLine is specific to PdfSharp.
                     if (value == XLineAlignment.BaseLine)
                         _stringFormat.LineAlignment = StringAlignment.Near;
                     else
@@ -144,6 +144,16 @@ namespace PdfSharp.Drawing
             }
         }
         XLineAlignment _lineAlignment;
+
+        /// <summary>
+        /// Support PdfAcroFieldFlags.Comb
+        /// </summary>
+        public bool Comb { get; set; }
+
+        /// <summary>
+        /// Width of a single comb for the output-string
+        /// </summary>
+        public double CombWidth { get; set; }
 
         //public StringTrimming Trimming { get; set; }
 
@@ -175,12 +185,48 @@ namespace PdfSharp.Drawing
         }
 
         /// <summary>
+        /// Gets a new XStringFormat object that tops the text in the right of the layout rectangle.
+        /// </summary>
+        [Obsolete("Use XStringFormats.TopRight. (Note plural in class name.)")]
+        public static XStringFormat TopRight
+        {
+            get { return XStringFormats.TopRight; }
+        }
+
+        /// <summary>
+        /// Gets a new XStringFormat object that bottoms the text in the right of the layout rectangle.
+        /// </summary>
+        [Obsolete("Use XStringFormats.BottomRight. (Note plural in class name.)")]
+        public static XStringFormat BottomRight
+        {
+            get { return XStringFormats.BottomRight; }
+        }
+
+        /// <summary>
         /// Gets a new XStringFormat object that centers the text at the top of the layout rectangle.
         /// </summary>
         [Obsolete("Use XStringFormats.TopCenter. (Note plural in class name.)")]
         public static XStringFormat TopCenter
         {
             get { return XStringFormats.TopCenter; }
+        }
+
+        /// <summary>
+        /// Gets a new XStringFormat object that centers the text at the top of the layout rectangle.
+        /// </summary>
+        [Obsolete("Use XStringFormats.CenterLeft. (Note plural in class name.)")]
+        public static XStringFormat CenterLeft
+        {
+            get { return XStringFormats.CenterLeft; }
+        }
+
+        /// <summary>
+        /// Gets a new XStringFormat object that centers the text at the right of the layout rectangle.
+        /// </summary>
+        [Obsolete("Use XStringFormats.TopCenter. (Note plural in class name.)")]
+        public static XStringFormat CenterRight
+        {
+            get { return XStringFormats.CenterRight; }
         }
 
         /// <summary>
@@ -202,7 +248,7 @@ namespace PdfSharp.Drawing
                 _stringFormat = (StringFormat)StringFormat.GenericTypographic.Clone();
                 _stringFormat.Alignment = (StringAlignment)_alignment;
 
-                // BaseLine is specific to PDFsharp.
+                // BaseLine is specific to PdfSharp.
                 if (_lineAlignment == XLineAlignment.BaseLine)
                     _stringFormat.LineAlignment = StringAlignment.Near;
                 else

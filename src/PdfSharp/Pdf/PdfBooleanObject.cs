@@ -1,11 +1,11 @@
-#region PDFsharp - A .NET library for processing PDF
+ï»¿#region PDFsharp - A .NET library for processing PDF
 //
 // Authors:
 //   Stefan Lange
 //
 // Copyright (c) 2005-2019 empira Software GmbH, Cologne Area (Germany)
 //
-// http://www.pdfsharp.com
+// http://www.PdfSharp.com
 // http://sourceforge.net/projects/pdfsharp
 //
 // Permission is hereby granted, free of charge, to any person obtaining a
@@ -33,7 +33,7 @@ using PdfSharp.Pdf.IO;
 namespace PdfSharp.Pdf
 {
     /// <summary>
-    /// Represents an indirect boolean value. This type is not used by PDFsharp. If it is imported from
+    /// Represents an indirect boolean value. This type is not used by PdfSharp. If it is imported from
     /// an external PDF file, the value is converted into a direct object.
     /// </summary>
     [DebuggerDisplay("({Value})")]
@@ -82,9 +82,9 @@ namespace PdfSharp.Pdf
         }
 
         /// <summary>
-        /// Writes the keyword «false» or «true».
+        /// Writes the keyword ï¿½falseï¿½ or ï¿½trueï¿½.
         /// </summary>
-        internal override void WriteObject(PdfWriter writer)
+        protected override void WriteObject(PdfWriter writer)
         {
             writer.WriteBeginObject(this);
             writer.Write(_value);

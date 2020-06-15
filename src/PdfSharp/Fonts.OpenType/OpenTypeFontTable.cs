@@ -5,7 +5,7 @@
 //
 // Copyright (c) 2005-2019 empira Software GmbH, Cologne Area (Germany)
 //
-// http://www.pdfsharp.com
+// http://www.PdfSharp.com
 // http://sourceforge.net/projects/pdfsharp
 //
 // Permission is hereby granted, free of charge, to any person obtaining a
@@ -42,7 +42,7 @@ namespace PdfSharp.Fonts.OpenType
     // TODO: Create a font driver for reading and writing OpenType font files.
 
     /// <summary>
-    /// Base class for all OpenType tables used in PDFsharp.
+    /// Base class for all OpenType tables used in PdfSharp.
     /// </summary>
     internal class OpenTypeFontTable : ICloneable
     {

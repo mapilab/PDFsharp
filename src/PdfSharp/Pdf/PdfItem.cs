@@ -1,11 +1,11 @@
-#region PDFsharp - A .NET library for processing PDF
+﻿#region PDFsharp - A .NET library for processing PDF
 //
 // Authors:
 //   Stefan Lange
 //
 // Copyright (c) 2005-2019 empira Software GmbH, Cologne Area (Germany)
 //
-// http://www.pdfsharp.com
+// http://www.PdfSharp.com
 // http://sourceforge.net/projects/pdfsharp
 //
 // Permission is hereby granted, free of charge, to any person obtaining a
@@ -32,12 +32,19 @@ using PdfSharp.Pdf.IO;
 
 namespace PdfSharp.Pdf
 {
+    public class PdfItemEventArgs : EventArgs
+    {
+        public int Position { get; set; }
+    }
     /// <summary>
     /// The base class of all PDF objects and simple PDF types.
     /// </summary>
     public abstract class PdfItem : ICloneable
     {
         // All simple types (i.e. derived from PdfItem but not from PdfObject) must be immutable.
+        internal event EventHandler<PdfItemEventArgs> BeforeWrite;
+        internal event EventHandler<PdfItemEventArgs> AfterWrite;
+
 
         object ICloneable.Clone()
         {
@@ -64,6 +71,17 @@ namespace PdfSharp.Pdf
         /// When overridden in a derived class, appends a raw string representation of this object
         /// to the specified PdfWriter.
         /// </summary>
-        internal abstract void WriteObject(PdfWriter writer);
+        protected abstract void WriteObject(PdfWriter writer);
+
+
+        internal void Write(PdfWriter writer)
+        {
+            var startPosition = writer.Layout == PdfWriterLayout.Verbose ? writer.Position + 1 : writer.Position;
+
+            this.BeforeWrite?.Invoke(this, new PdfItemEventArgs() { Position = startPosition });
+            WriteObject(writer);
+            this.AfterWrite?.Invoke(this, new PdfItemEventArgs() { Position = writer.Position });
+        }
+
     }
 }

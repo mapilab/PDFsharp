@@ -1,11 +1,11 @@
-#region PDFsharp - A .NET library for processing PDF
+ï»¿#region PDFsharp - A .NET library for processing PDF
 //
 // Authors:
 //   Stefan Lange
 //
 // Copyright (c) 2005-2019 empira Software GmbH, Cologne Area (Germany)
 //
-// http://www.pdfsharp.com
+// http://www.PdfSharp.com
 // http://sourceforge.net/projects/pdfsharp
 //
 // Permission is hereby granted, free of charge, to any person obtaining a
@@ -366,7 +366,7 @@ namespace PdfSharp.Pdf
         }
 
         /// <summary>
-        /// Returns the rectangle as a string in the form «[x1 y1 x2 y2]».
+        /// Returns the rectangle as a string in the form ï¿½[x1 y1 x2 y2]ï¿½.
         /// </summary>
         public override string ToString()
         {
@@ -377,7 +377,7 @@ namespace PdfSharp.Pdf
         /// <summary>
         /// Writes the rectangle.
         /// </summary>
-        internal override void WriteObject(PdfWriter writer)
+        protected override void WriteObject(PdfWriter writer)
         {
             writer.Write(this);
         }

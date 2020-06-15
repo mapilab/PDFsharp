@@ -1,11 +1,11 @@
-#region PDFsharp - A .NET library for processing PDF
+﻿#region PDFsharp - A .NET library for processing PDF
 //
 // Authors:
 //   Stefan Lange
 //
 // Copyright (c) 2005-2019 empira Software GmbH, Cologne Area (Germany)
 //
-// http://www.pdfsharp.com
+// http://www.PdfSharp.com
 // http://sourceforge.net/projects/pdfsharp
 //
 // Permission is hereby granted, free of charge, to any person obtaining a
@@ -70,6 +70,19 @@ namespace PdfSharp.Pdf
                 Elements.Add(item);
         }
 
+        
+        public PdfArray(params PdfItem[] items)
+        {
+            foreach (PdfItem item in items)
+                Elements.Add(item);
+        }
+
+        public PdfArray(PdfDocument document, int paddingRight, params PdfItem[] items)
+      : this(document, items)
+        {
+            this.PaddingRight = paddingRight;
+        }
+
         /// <summary>
         /// Initializes a new instance from an existing dictionary. Used for object type transformation.
         /// </summary>
@@ -118,6 +131,8 @@ namespace PdfSharp.Pdf
             get { return _elements ?? (_elements = new ArrayElements(this)); }
         }
 
+        public int PaddingRight { get; private set; }
+
         /// <summary>
         /// Returns an enumerator that iterates through a collection.
         /// </summary>
@@ -145,16 +160,24 @@ namespace PdfSharp.Pdf
             return pdf.ToString();
         }
 
-        internal override void WriteObject(PdfWriter writer)
+        protected override void WriteObject(PdfWriter writer)
         {
             writer.WriteBeginObject(this);
             int count = Elements.Count;
             for (int idx = 0; idx < count; idx++)
             {
                 PdfItem value = Elements[idx];
-                value.WriteObject(writer);
+                value.Write(writer);
             }
             writer.WriteEndObject();
+            if (PaddingRight > 0)
+            {
+                var bytes = new byte[PaddingRight];
+                for (int i = 0; i < PaddingRight; i++)
+                    bytes[i] = 32;
+
+                writer.Write(bytes);
+            }
         }
 
         /// <summary>

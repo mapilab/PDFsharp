@@ -1,11 +1,11 @@
-#region PDFsharp - A .NET library for processing PDF
+﻿#region PDFsharp - A .NET library for processing PDF
 //
 // Authors:
 //   Stefan Lange
 //
 // Copyright (c) 2005-2019 empira Software GmbH, Cologne Area (Germany)
 //
-// http://www.pdfsharp.com
+// http://www.PdfSharp.com
 // http://sourceforge.net/projects/pdfsharp
 //
 // Permission is hereby granted, free of charge, to any person obtaining a
@@ -384,8 +384,7 @@ namespace PdfSharp.Forms
         /// </summary>
         protected virtual void OnZoomChanged(EventArgs e)
         {
-            if (ZoomChanged != null)
-                ZoomChanged(this, e);
+            ZoomChanged?.Invoke(this, e);
         }
 
         /// <summary>
@@ -543,7 +542,7 @@ namespace PdfSharp.Forms
             switch (_zoom)
             {
                 case Zoom.BestFit:
-                BestFit:
+                    BestFit:
                     //zoomPercent = Convert.ToInt32(25400.0 * (rcCanvas.Width - (leftBorder + rightBorder)) / (this.pageSize.Width * xdpiScreen));
                     _zoomPercent = (int)(7200f * (rcCanvas.Width - horzBorders) / (_pageSize.Width * xdpiScreen));
                     //--zoomPercent;  // prevent round up errors

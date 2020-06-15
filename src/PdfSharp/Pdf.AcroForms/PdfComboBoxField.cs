@@ -1,11 +1,11 @@
-#region PDFsharp - A .NET library for processing PDF
+ï»¿#region PDFsharp - A .NET library for processing PDF
 //
 // Authors:
 //   Stefan Lange
 //
 // Copyright (c) 2005-2019 empira Software GmbH, Cologne Area (Germany)
 //
-// http://www.pdfsharp.com
+// http://www.PdfSharp.com
 // http://sourceforge.net/projects/pdfsharp
 //
 // Permission is hereby granted, free of charge, to any person obtaining a
@@ -27,6 +27,7 @@
 // DEALINGS IN THE SOFTWARE.
 #endregion
 
+using PdfSharp.Drawing;
 using System;
 
 namespace PdfSharp.Pdf.AcroForms
@@ -43,7 +44,7 @@ namespace PdfSharp.Pdf.AcroForms
             : base(document)
         { }
 
-        internal PdfComboBoxField(PdfDictionary dict)
+        public PdfComboBoxField(PdfDictionary dict)
             : base(dict)
         { }
 
@@ -55,16 +56,20 @@ namespace PdfSharp.Pdf.AcroForms
             get
             {
                 string value = Elements.GetString(Keys.V);
-                return IndexInOptArray(value);
+                // try export value first
+                var index = IndexInOptArray(value, true);
+                if (index < 0)
+                    index = IndexInOptArray(value, false);
+                return index;
             }
             set
             {
                 // xxxxxxxxxxxxxxxxxxxxxxxxxxxxxx		  
                 if (value != -1) //R080325
                 {
-                    string key = ValueInOptArray(value);
+                    string key = ValueInOptArray(value, true);
                     Elements.SetString(Keys.V, key);
-                    Elements.SetInteger("/I", value); //R080304 !!!!!!! sonst reagiert die Combobox überhaupt nicht !!!!!
+                    Elements.SetInteger("/I", value); //R080304 !!!!!!! sonst reagiert die Combobox ï¿½berhaupt nicht !!!!!
                 }
             }
         }
@@ -89,7 +94,7 @@ namespace PdfSharp.Pdf.AcroForms
                         //R080317 noch nicht rund
                         try
                         {
-                            //anhängen
+                            //anhï¿½ngen
                             ((PdfArray)(((PdfItem[])(Elements.Values))[2])).Elements.Add(Value);
                             SelectedIndex = SelectedIndex;
                         }
@@ -98,6 +103,33 @@ namespace PdfSharp.Pdf.AcroForms
                 }
                 else
                     throw new NotImplementedException("Values other than string cannot be set.");
+            }
+        }
+
+        internal override void Flatten()
+        {
+            base.Flatten();
+
+            var index = SelectedIndex;
+            if (index >= 0)
+            {
+                var text = ValueInOptArray(index, false);
+                if (text.Length > 0)
+                {
+                    var rect = Rectangle;
+                    if (!rect.IsEmpty)
+                    {
+                        var xRect = new XRect(rect.X1, Page.Height.Point - rect.Y2, rect.Width, rect.Height);
+                        using (var gfx = XGraphics.FromPdfPage(Page))
+                        {
+                            gfx.Save();
+                            gfx.IntersectClip(xRect);
+                            // Note: Page origin [0,0] is bottom left !
+                            gfx.DrawString(text, Font, new XSolidBrush(ForeColor), xRect + new XPoint(2, 2), XStringFormats.TopLeft);
+                            gfx.Restore();
+                        }
+                    }
+                }
             }
         }
 

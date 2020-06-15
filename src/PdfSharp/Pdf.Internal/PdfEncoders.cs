@@ -1,11 +1,11 @@
-#region PDFsharp - A .NET library for processing PDF
+ï»¿#region PDFsharp - A .NET library for processing PDF
 //
 // Authors:
 //   Stefan Lange
 //
 // Copyright (c) 2005-2019 empira Software GmbH, Cologne Area (Germany)
 //
-// http://www.pdfsharp.com
+// http://www.PdfSharp.com
 // http://sourceforge.net/projects/pdfsharp
 //
 // Permission is hereby granted, free of charge, to any person obtaining a
@@ -250,9 +250,9 @@ namespace PdfSharp.Pdf.Internal
         /// <summary>
         /// Converts a raw string into a raw hexadecimal string literal, possibly encrypted.
         /// </summary>
-        public static string ToHexStringLiteral(string text, PdfStringEncoding encoding, PdfStandardSecurityHandler securityHandler)
+        public static string ToHexStringLiteral(string text, PdfStringEncoding encoding, PdfStandardSecurityHandler securityHandler, int paddingLeft)
         {
-            if (String.IsNullOrEmpty(text))
+            if (String.IsNullOrEmpty(text) && paddingLeft == 0)
                 return "<>";
 
             byte[] bytes;
@@ -277,6 +277,13 @@ namespace PdfSharp.Pdf.Internal
 
                 default:
                     throw new NotImplementedException(encoding.ToString());
+            }
+
+            if (bytes.Length < paddingLeft)
+            {
+                byte[] tmp = new byte[paddingLeft];
+                Array.Copy(bytes, tmp, bytes.Length);
+                bytes = tmp;
             }
 
             byte[] agTemp = FormatStringLiteral(bytes, encoding == PdfStringEncoding.Unicode, true, true, securityHandler);
@@ -406,7 +413,7 @@ namespace PdfSharp.Pdf.Internal
             }
             else
             {
-                //Hex:
+                Hex:
                 if (hex)
                 {
                     if (securityHandler != null && prefix)
@@ -464,7 +471,7 @@ namespace PdfSharp.Pdf.Internal
         }
 
         /// <summary>
-        /// Converts WinAnsi to DocEncode characters. Incomplete, just maps € and some other characters.
+        /// Converts WinAnsi to DocEncode characters. Incomplete, just maps ï¿½ and some other characters.
         /// </summary>
         static byte[] docencode_______ = new byte[256]
         {
@@ -634,7 +641,13 @@ namespace PdfSharp.Pdf.Internal
 
             // If not defined let color decide
             if (colorMode == PdfColorMode.Undefined)
+            {
+                if (color.ColorSpace == XColorSpace.GrayScale)
+                {
+                    return string.Format(CultureInfo.InvariantCulture, "{0:" + format + "}", color.GS);
+                }
                 colorMode = color.ColorSpace == XColorSpace.Cmyk ? PdfColorMode.Cmyk : PdfColorMode.Rgb;
+            }
 
             switch (colorMode)
             {
