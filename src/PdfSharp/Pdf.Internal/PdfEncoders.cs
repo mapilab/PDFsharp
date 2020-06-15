@@ -413,7 +413,6 @@ namespace PdfSharp.Pdf.Internal
             }
             else
             {
-                Hex:
                 if (hex)
                 {
                     if (securityHandler != null && prefix)

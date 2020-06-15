@@ -98,7 +98,7 @@ namespace PdfSharp.Pdf.Actions
             Elements.SetName(PdfAction.Keys.S, "/GoToE");
         }
 
-        internal override void WriteObject(PdfWriter writer)
+        protected override void WriteObject(PdfWriter writer)
         {
             if (!string.IsNullOrEmpty(_documentPath))
             {

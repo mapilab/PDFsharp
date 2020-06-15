@@ -72,7 +72,7 @@ namespace PdfSharp.Pdf.Actions
             Elements.SetName(PdfAction.Keys.S, "/GoTo");
         }
 
-        internal override void WriteObject(PdfWriter writer)
+        protected override void WriteObject(PdfWriter writer)
         {
             Elements.SetString(PdfRemoteGoToAction.Keys.D, _destinationName);
 

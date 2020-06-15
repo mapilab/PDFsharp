@@ -164,7 +164,7 @@ namespace PdfSharp.Pdf
             base.PrepareForSave();
         }
 
-        internal override void WriteObject(PdfWriter writer)
+        protected override void WriteObject(PdfWriter writer)
         {
             GetType();
             base.WriteObject(writer);

@@ -79,7 +79,7 @@ namespace PdfSharp.Pdf.Actions
             Elements.SetName(PdfAction.Keys.S, "/GoToR");
         }
 
-        internal override void WriteObject(PdfWriter writer)
+        protected override void WriteObject(PdfWriter writer)
         {
             var encodedPath = EncodePath(_documentPath);
             Elements.SetString(Keys.F, encodedPath);
