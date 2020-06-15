@@ -36,6 +36,7 @@ using System.Runtime.InteropServices;
 // associated with an assembly.
 //
 [assembly: AssemblyTitle("PDFsharp Charting")]
+[assembly: AssemblyVersion(PdfSharp.VersionInfo.Version)]
 [assembly: AssemblyDescription("A .NET charting library based on PdfSharp.")]
 [assembly: AssemblyConfiguration(PdfSharp.ProductVersionInfo.Configuration)]
 [assembly: AssemblyCompany(PdfSharp.ProductVersionInfo.Company)]
