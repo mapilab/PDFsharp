@@ -12,8 +12,7 @@
     <AssemblyKeyContainerName>
     </AssemblyKeyContainerName>
     <AssemblyName>PdfSharp.Charting-gdi</AssemblyName>
-    <AssemblyOriginatorKeyFile>
-    </AssemblyOriginatorKeyFile>
+    <AssemblyOriginatorKeyFile>mapilab.snk</AssemblyOriginatorKeyFile>
     <DefaultClientScript>JScript</DefaultClientScript>
     <DefaultHTMLPageLayout>Grid</DefaultHTMLPageLayout>
     <DefaultTargetSchema>IE50</DefaultTargetSchema>
@@ -27,7 +26,7 @@
     </FileUpgradeFlags>
     <UpgradeBackupLocation>
     </UpgradeBackupLocation>
-    <SignAssembly>false</SignAssembly>
+    <SignAssembly>true</SignAssembly>
     <OldToolsVersion>3.5</OldToolsVersion>
     <TargetFrameworkVersion>v3.5</TargetFrameworkVersion>
     <PublishUrl>publish\</PublishUrl>
@@ -101,6 +100,9 @@
       <Name>System</Name>
     </Reference>
     <Reference Include="System.Drawing" />
+    <Reference Include="System.Threading.Tasks.NET35, Version=3.0.2.0, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\packages\System.Threading.Tasks.Unofficial.3.1\lib\net35\System.Threading.Tasks.NET35.dll</HintPath>
+    </Reference>
   </ItemGroup>
   <ItemGroup>
     <Compile Include="..\Pdfsharp.Charting\Charting.Renderers\AreaChartRenderer.cs">
@@ -402,6 +404,10 @@
       <Project>{5384ce57-1f94-4d22-860d-2e9c1ac12ddf}</Project>
       <Name>Pdfsharp-gdi</Name>
     </ProjectReference>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="mapilab.snk" />
+    <None Include="packages.config" />
   </ItemGroup>
   <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
   <PropertyGroup>

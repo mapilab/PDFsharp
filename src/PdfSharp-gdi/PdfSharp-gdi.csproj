@@ -12,8 +12,7 @@
     <AssemblyKeyContainerName>
     </AssemblyKeyContainerName>
     <AssemblyName>PdfSharp-gdi</AssemblyName>
-    <AssemblyOriginatorKeyFile>
-    </AssemblyOriginatorKeyFile>
+    <AssemblyOriginatorKeyFile>mapilab.snk</AssemblyOriginatorKeyFile>
     <DefaultClientScript>JScript</DefaultClientScript>
     <DefaultHTMLPageLayout>Grid</DefaultHTMLPageLayout>
     <DefaultTargetSchema>IE50</DefaultTargetSchema>
@@ -27,7 +26,7 @@
     </FileUpgradeFlags>
     <UpgradeBackupLocation>
     </UpgradeBackupLocation>
-    <SignAssembly>false</SignAssembly>
+    <SignAssembly>true</SignAssembly>
     <OldToolsVersion>3.5</OldToolsVersion>
     <IsWebBootstrapper>false</IsWebBootstrapper>
     <TargetFrameworkVersion>v3.5</TargetFrameworkVersion>
@@ -1262,6 +1261,7 @@
     <EmbeddedResource Include="..\PdfSharp\Resources\Messages.restext">
       <Link>Resources\Messages.restext</Link>
     </EmbeddedResource>
+    <None Include="mapilab.snk" />
     <None Include="packages.config" />
     <None Include="StrongnameKey.snk" />
   </ItemGroup>

@@ -40,12 +40,15 @@
     <SignAssembly>true</SignAssembly>
   </PropertyGroup>
   <PropertyGroup>
-    <AssemblyOriginatorKeyFile>..\PEX.snk</AssemblyOriginatorKeyFile>
+    <AssemblyOriginatorKeyFile>mapilab.snk</AssemblyOriginatorKeyFile>
   </PropertyGroup>
   <ItemGroup>
     <Reference Include="System" />
     <Reference Include="System.Drawing" />
     <Reference Include="System.Security" />
+    <Reference Include="System.Threading.Tasks.NET35, Version=3.0.2.0, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\packages\System.Threading.Tasks.Unofficial.3.1\lib\net35\System.Threading.Tasks.NET35.dll</HintPath>
+    </Reference>
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
@@ -422,6 +425,8 @@
     <EmbeddedResource Include="Resources\Messages.restext" />
   </ItemGroup>
   <ItemGroup>
+    <None Include="mapilab.snk" />
+    <None Include="packages.config" />
     <None Include="SharpZipLib\ReadMe.txt" />
   </ItemGroup>
   <ItemGroup>
