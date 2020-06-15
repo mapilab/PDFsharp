@@ -42,6 +42,18 @@
   <PropertyGroup>
     <AssemblyOriginatorKeyFile>mapilab.snk</AssemblyOriginatorKeyFile>
   </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'Release-net45|AnyCPU'">
+    <OutputPath>bin\Release-net45\</OutputPath>
+    <DefineConstants>TRACE;CORE;CORE_WITH_GDI</DefineConstants>
+    <DocumentationFile>bin\Release\Pdfsharp.xml</DocumentationFile>
+    <Optimize>true</Optimize>
+    <NoWarn>CS1591</NoWarn>
+    <DebugType>pdbonly</DebugType>
+    <PlatformTarget>AnyCPU</PlatformTarget>
+    <LangVersion>7.3</LangVersion>
+    <ErrorReport>prompt</ErrorReport>
+    <CodeAnalysisRuleSet>MinimumRecommendedRules.ruleset</CodeAnalysisRuleSet>
+  </PropertyGroup>
   <ItemGroup>
     <Reference Include="System" />
     <Reference Include="System.Drawing" />

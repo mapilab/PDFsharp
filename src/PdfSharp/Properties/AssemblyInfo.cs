@@ -36,6 +36,7 @@ using System.Windows.Markup;
 #endif
 
 [assembly: AssemblyTitle(PdfSharp.VersionInfo.Title)]
+[assembly: AssemblyVersion(PdfSharp.VersionInfo.Version)]
 [assembly: AssemblyDescription(PdfSharp.VersionInfo.Description)]
 [assembly: AssemblyConfiguration(PdfSharp.VersionInfo.Configuration)]
 [assembly: AssemblyCompany(PdfSharp.VersionInfo.Company)]
